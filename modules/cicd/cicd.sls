@@ -10,9 +10,11 @@
 
 docker_cicd:
   git.latest:
-    - name: https://github.com/ArdRay/homelab_compose.git
+    - name: https://git.int.mxard.tech/ard/homelab_services
     - target: /opt/cicd
     - rev: cicd
+    - https_user: {{ pillar['git_auth']['local_git']['user'] }}
+    - https_pass: {{ pillar['git_auth']['local_git']['password'] }}
     - force_reset: True
     - force_clone: True
   file.managed:
