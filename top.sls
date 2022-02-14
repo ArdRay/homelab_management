@@ -16,5 +16,7 @@ base:
     - modules.acme.acme
   'vmk-ext-01':
     - hosts.vmk-ext-01
+  'vmk-srv-01':
+    - hosts.vmk-srv-01
   'vmk-rpi-01':
     - hosts.vmk-rpi-01
