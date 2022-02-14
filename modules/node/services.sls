@@ -3,22 +3,26 @@
 ---
 ## SSHD hardening
 sshd:
+  file.managed:
+    - names:
+      - /etc/ssh/sshd_config:
+        - source: salt://files/sshd/sshd_config
+        - user: root
+        - group: root
+        - mode: 600
+      - /etc/ssh/moduli:
+        - source: salt://files/sshd/moduli
+        - user: root
+        - group: root
+        - mode: 644
   service.running:
     - reload: True
     - enable: True
     - watch:
       - file: /etc/ssh/sshd_config
       - file: /etc/ssh/moduli
-  file.managed:
-    - name: /etc/ssh/sshd_config
-    - user: root
-    - group: root
-    - mode: 600
-    - source: salt://files/sshd/sshd_config
-  cmd.run:
-    - name: awk '$5 >= 3071' /etc/ssh/moduli > /etc/ssh/moduli
-    - unless: if (( `awk '$5 < 3071' /etc/ssh/moduli | wc -l` > 0 )); then exit 1; fi
 
+## Ensure basic services are up
 {% if grains['os'] == 'Rocky' %}
 ## NTP
 chronyd:
