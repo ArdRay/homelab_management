@@ -5,8 +5,16 @@ base:
   '*':
     - default_config
   'vmk-cicd-01':
-    - cicd_config
+    - hosts.vmk-cicd-01
+    - modules.docker.docker
+    - modules.acme.acme
+    - modules.cicd.cicd
   'vmk-man-01':
-    - man_config
+    - hosts.vmk-man-01
+    - modules.docker.docker
+    - modules.gitea.gitea
+    - modules.acme.acme
+  'vmk-ext-01':
+    - hosts.vmk-ext-01
   'vmk-rpi-01':
-    - rpi_config
+    - hosts.vmk-rpi-01

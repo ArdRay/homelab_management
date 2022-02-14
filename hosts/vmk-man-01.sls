@@ -1,11 +1,6 @@
 # -*- coding: utf-8 -*-
 # vim: ft=yaml
 ---
-include:
-  - modules.docker.docker
-  - modules.gitea.gitea
-  - modules.acme.acme
-
 gitea:
   firewalld.service:
     - name: gitea

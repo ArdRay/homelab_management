@@ -1,11 +1,6 @@
 # -*- coding: utf-8 -*-
 # vim: ft=yaml
 ---
-include:
-  - modules.docker.docker
-  - modules.acme.acme
-  - modules.cicd.cicd
-
 public:
   firewalld.present:
     - name: public
@@ -26,4 +21,3 @@ public:
   cmd.run:
     - onchanges:
       - file: /etc/sysconfig/network-scripts/ifcfg-ens18
-  
