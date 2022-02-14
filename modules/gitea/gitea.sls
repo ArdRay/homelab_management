@@ -12,7 +12,7 @@ docker_gitea:
   git.latest:
     - name:  https://git.int.mxard.tech/ard/homelab_services
     - target: /opt/gitea
-    - rev: gitea
+    - rev: git
     - https_user: {{ pillar['git_auth']['local_git']['user'] }}
     - https_pass: {{ pillar['git_auth']['local_git']['password'] }}
     - force_reset: True
