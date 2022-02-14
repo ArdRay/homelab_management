@@ -15,6 +15,7 @@ sshd:
         - user: root
         - group: root
         - mode: 644
+        - show_changes: False
   service.running:
     - reload: True
     - enable: True
