@@ -24,3 +24,6 @@ generate_certificates:
             - CF_Token: {{ pillar['cloudflare']['token'] }}
         - creates: /.acme.sh/{{ certificate['name'] }}.{{ certificate['position'] }}.mxard.tech_ecc/{{ certificate['name'] }}.{{ certificate['position'] }}.mxard.tech.cer
 {% endfor %}
+
+include:
+    - modules.node.environment

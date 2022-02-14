@@ -1,13 +1,6 @@
 # -*- coding: utf-8 -*-
 # vim: ft=yaml
 ---
-gitea:
-  firewalld.service:
-    - name: gitea
-    - ports:
-      - 80/tcp
-      - 2222/tcp
-
 public:
   firewalld.present:
     - name: public
@@ -18,6 +11,5 @@ public:
     - services:
       - ssh
       - salt-master
-      - gitea
     - sources:
       - 10.0.0.0/8

@@ -3,7 +3,10 @@
 ---
 base:
   '*':
-    - default_config
+    - modules.node.interfaces
+    - modules.node.packages
+    - modules.node.services
+    - modules.node.users
   'vmk-cicd-01':
     - hosts.vmk-cicd-01
     - modules.docker.docker
