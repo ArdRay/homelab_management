@@ -52,14 +52,15 @@ pkg.latest:
 #     - group: root
 #     - mode: 744
 
-haproxy_service:
-  file.directory:
+file.directory:
     - user: root
     - group: root
     - mode: 744
     - names:
       - /etc/haproxy
       - /etc/systemd/system/haproxy.d
+
+haproxy_service:
   file.managed:
     - user: root
     - group: root
