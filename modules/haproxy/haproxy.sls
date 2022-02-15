@@ -56,6 +56,7 @@ create_dirs:
     - user: root
     - group: root
     - mode: 744
+    - makesdirs: True
     - names:
       - /etc/haproxy
       - /etc/systemd/system/haproxy.d
