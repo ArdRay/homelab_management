@@ -60,7 +60,7 @@ create_dirs:
       - /etc/haproxy
       - /etc/systemd/system/haproxy.d
 
-haproxy_service:
+haproxy:
   file.managed:
     - user: root
     - group: root
