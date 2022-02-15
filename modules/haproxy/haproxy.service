@@ -5,7 +5,7 @@ Wants=network-online.target
 
 [Service]
 Environment="CONFIG=/etc/haproxy/haproxy.cfg" "PIDFILE=/run/haproxy.pid"
-EnvironmentFile=/etc/sysconfig/haproxy
+#EnvironmentFile=/etc/sysconfig/haproxy
 ExecStartPre=/usr/local/sbin/haproxy -f $CONFIG -c -q 
 ExecStart=/usr/local/sbin/haproxy -Ws -f $CONFIG -p $PIDFILE 
 ExecReload=/usr/local/sbin/haproxy -f $CONFIG -c -q 
