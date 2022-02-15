@@ -18,7 +18,7 @@ haproxy_packaged:
     - unless: 
       - test -f /usr/local/bin/lua
 
-# Install HAProxy from source
+# Install HAProxy from source - FLAGS: TARGET=linux-glibc USE_OPENSSL=1 USE_LUA=1 USE_PCRE=1 USE_SYSTEMD=1
 "cd /tmp && wget https://www.haproxy.org/download/2.5/src/haproxy-2.5.1.tar.gz && tar zxf haproxy-2.5.1.tar.gz && cd haproxy-2.5.1 && make TARGET=linux-glibc USE_OPENSSL=1 USE_LUA=1 USE_PCRE=1 USE_SYSTEMD=1 && make install && rm -rf /tmp/haproxy-2.5.1 && rm /tmp/haproxy-2.5.1.tar.gz":
   cmd.run:
     - unless:
@@ -59,4 +59,4 @@ haproxy:
   cmd.wait:
     - name: systemctl daemon-reload
     - watch:
-      - file: /etc/systemd/system/haproxy.service/haproxy.service
+      - file: /etc/systemd/system/haproxy.service
