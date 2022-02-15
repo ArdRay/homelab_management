@@ -32,10 +32,6 @@ create_dirs:
         - user: root
         - group: root
         - mode: 744
-      - /etc/systemd/system/haproxy.service:
-        - user: root
-        - group: root
-        - mode: 755
       - /var/lib/haproxy/:
         - user: root
         - group: root
@@ -49,9 +45,9 @@ haproxy:
   file.managed:
     - user: root
     - group: root
-    - mode: 744
+    - mode: 755
     - names:
-      - /etc/systemd/system/haproxy.service/haproxy.service:
+      - /etc/systemd/system/haproxy.service:
         - source: salt://modules/haproxy/haproxy.service
       - /etc/haproxy/haproxy.cfg:
         - source: salt://modules/haproxy/haproxy.cfg
