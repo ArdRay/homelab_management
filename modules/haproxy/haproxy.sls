@@ -51,7 +51,8 @@ haproxy_packaged:
 #     - group: root
 #     - mode: 744
 
-file.directory:
+create_dirs:
+  file.directory:
     - user: root
     - group: root
     - mode: 744
