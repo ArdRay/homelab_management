@@ -12,12 +12,6 @@ haproxy_packaged:
       - readline-devel
       - systemd-devel
 
-# "/etc/haproxy":
-#   file.directory:
-#     - user: root
-#     - group: root
-#     - makedirs: True
-
 # Install Lua from source
 "cd /tmp && curl -R -O https://www.lua.org/ftp/lua-5.4.4.tar.gz && tar zxf lua-5.4.4.tar.gz && make linux test && make linux install && rm -rf /tmp/lua-5.4.4 && rm /tmp/lua-5.4.4.tar.gz":
   cmd.run:
@@ -30,44 +24,34 @@ haproxy_packaged:
     - unless:
       - test -f /usr/local/sbin/haproxy
 
-# "/etc/haproxy/haproxy.cfg":
-#   file.managed:
-#     - source: salt://modules/haproxy/haproxy.cfg
-#     - user: root
-#     - group: root
-#     - mode: 744
-
-# "/etc/systemd/system/haproxy.d":
-#   file.directory:
-#     - user: root
-#     - group: root
-#     - mode: 755
-#     - makedirs: True
-
-# "/etc/systemd/system/haproxy.d/haproxy.service":
-#   file.managed:
-#     - source: salt://modules/haproxy/haproxy.service
-#     - user: root
-#     - group: root
-#     - mode: 744
-
 create_dirs:
   file.directory:
-    - user: root
-    - group: root
-    - mode: 744
     - makesdirs: True
     - names:
-      - /etc/haproxy
-      - /etc/systemd/system/haproxy.d
+      - /etc/haproxy:
+        - user: root
+        - group: root
+        - mode: 744
+      - /etc/systemd/system/haproxy.service:
+        - user: root
+        - group: root
+        - mode: 755
+      - /var/lib/haproxy/:
+        - user: root
+        - group: root
+        - mode: 744
 
 haproxy:
+  user.present:
+    - shell: /sbin/nologin
+    - home: /var/lib/haproxy
+    - system: True
   file.managed:
     - user: root
     - group: root
     - mode: 744
     - names:
-      - /etc/systemd/system/haproxy.d/haproxy.service:
+      - /etc/systemd/system/haproxy.service/haproxy.service:
         - source: salt://modules/haproxy/haproxy.service
       - /etc/haproxy/haproxy.cfg:
         - source: salt://modules/haproxy/haproxy.cfg
@@ -79,4 +63,4 @@ haproxy:
   cmd.wait:
     - name: systemctl daemon-reload
     - watch:
-      - file: /etc/systemd/system/haproxy.d/haproxy.service
+      - file: /etc/systemd/system/haproxy.service/haproxy.service
