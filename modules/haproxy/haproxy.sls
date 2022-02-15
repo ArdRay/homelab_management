@@ -1,17 +1,16 @@
 # -*- coding: utf-8 -*-
 # vim: ft=yaml
 ---
-pkg.latest:
-  - pkgs:
-    - make
-    - gcc
-    - perl
-    - pcre-devel
-    - zlib-devel
-    - wget 
-    - openssl-devel 
-    - readline-devel
-    - systemd-devel
+haproxy_packaged:
+  pkg.latest:
+    - pkgs:
+      - make
+      - gcc
+      - perl
+      - wget 
+      - openssl-devel 
+      - readline-devel
+      - systemd-devel
 
 # "/etc/haproxy":
 #   file.directory:
