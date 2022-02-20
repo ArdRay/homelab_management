@@ -40,7 +40,7 @@ authentication_backend:
 
   ldap:
     implementation: custom
-    url: ldap://ldap_proxy:389
+    url: ldap://ldap_proxy.internal:389
     timeout: 5s
     start_tls: false
     base_dn: {{ pillar['authelia']['authentication_backend']['ldap']['base_dn'] }}
@@ -85,7 +85,7 @@ session:
   remember_me_duration: 8h
 
   redis:
-    host: authelia_redis
+    host: authelia_redis.internal
     port: 6379
     database_index: 1
     maximum_active_connections: 8
@@ -99,7 +99,7 @@ regulation:
 storage:
   encryption_key: {{ pillar['authelia']['storage']['encryption_key'] }}
   postgres:
-    host: authelia_postgres
+    host: authelia_postgres.internal
     port: 5432
     database: authelia
     schema: public
