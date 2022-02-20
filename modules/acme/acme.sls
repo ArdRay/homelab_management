@@ -16,7 +16,7 @@ install_acme:
         - creates: /opt/acme/acme.sh
 
 {% for certificate in pillar['certificates'] %}
-generate_certificates:
+generate_{{ certificate['name'] }}_{{ certificate['position'] }}_certificate:
     cmd.run:
         - name: /opt/acme/acme.sh --issue --dns dns_cf --ocsp-must-staple --keylength ec-384 -d {{ certificate['name'] }}.{{ certificate['position'] }}.mxard.tech
         - env:
