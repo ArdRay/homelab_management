@@ -85,7 +85,7 @@ session:
   remember_me_duration: 8h
 
   redis:
-    host: redis.internal
+    host: authelia_redis
     port: 6379
     database_index: 1
     maximum_active_connections: 8
@@ -99,7 +99,7 @@ regulation:
 storage:
   encryption_key: {{ pillar['authelia']['storage']['encryption_key'] }}
   postgres:
-    host: postgres_authelia
+    host: authelia_postgres
     port: 5432
     database: authelia
     schema: public
