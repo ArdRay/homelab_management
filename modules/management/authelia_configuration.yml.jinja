@@ -1,0 +1,131 @@
+# yamllint disable rule:comments-indentation
+---
+theme: dark
+jwt_secret: {{ pillar['authelia']['jwt_secret'] }}
+
+server:
+  host: 0.0.0.0
+  port: 9091
+  path: ""
+  read_buffer_size: 4096
+  write_buffer_size: 4096
+  enable_pprof: false
+  enable_expvars: false
+  disable_healthcheck: false
+  tls:
+    key: ""
+    certificate: ""
+
+log:
+  level: info
+  keep_stdout: true
+
+totp:
+  issuer: Ard LDAP
+  algorithm: sha1
+  digits: 6
+  period: 30
+  skew: 1
+
+ntp:
+  address: "time.cloudflare.com:123"
+  version: 4
+  max_desync: 3s
+  disable_startup_check: false
+  disable_failure: false
+
+authentication_backend:
+  disable_reset_password: true
+  refresh_interval: 5m
+
+  ldap:
+    implementation: custom
+    url: ldap://ldap_proxy:389
+    timeout: 5s
+    start_tls: false
+    base_dn: {{ pillar['authelia']['authentication_backend']['ldap']['base_dn'] }}
+    username_attribute: uid
+    additional_users_dn: ou=Users
+    users_filter: (&({username_attribute}={input})(objectClass=person))
+    groups_filter: (&(member={dn})(objectClass=groupOfNames))
+    group_name_attribute: cn
+    mail_attribute: mail
+    display_name_attribute: displayName
+    user: {{ pillar['authelia']['authentication_backend']['ldap']['user'] }}
+    password: {{ pillar['authelia']['authentication_backend']['ldap']['password'] }}
+
+access_control:
+  default_policy: deny
+
+  networks:
+    - name: inter_container
+      networks: 192.168.0.0/16
+    - name: internal
+      networks:
+        - 10.10.1.0/24
+        - 10.10.2.0/24
+        - 10.10.3.0/24
+    - name: internal_management
+      networks: 10.10.3.0/24
+
+  rules:
+    - domain: "hello.int.mxard.tech"
+      subject:
+        - "group:admin"
+        - "group:dev"
+      policy: one_factor
+  
+session:
+  name: authelia_session
+  domain: int.mxard.tech
+  same_site: lax
+  secret: {{ pillar['authelia']['session']['secret'] }}
+  expiration: 1h
+  inactivity: 15m
+  remember_me_duration: 8h
+
+  redis:
+    host: redis.internal
+    port: 6379
+    database_index: 1
+    maximum_active_connections: 8
+    minimum_idle_connections: 0
+
+regulation:
+  max_retries: 6
+  find_time: 2m
+  ban_time: 10m
+
+storage:
+  encryption_key: {{ pillar['authelia']['storage']['encryption_key'] }}
+  postgres:
+    host: postgres_authelia
+    port: 5432
+    database: authelia
+    schema: public
+    username: {{ pillar['authelia']['storage']['postgres']['user'] }}
+    password: {{ pillar['authelia']['storage']['postgres']['password'] }}
+    timeout: 5s
+    ssl:
+      mode: disable
+      root_certificate: disable
+      certificate: disable
+      key: disable
+
+notifier:
+  disable_startup_check: false
+  smtp:
+    host: email-smtp.eu-central-1.amazonaws.com
+    port: 25
+    timeout: 5s
+    username: AKIAY2MDD5XKVJWEKKUM
+    password: {{ pillar['authelia']['notifier']['smtp']['password'] }}
+    sender: "{{ pillar['authelia']['notifier']['smtp']['sender'] }}"
+    identifier: localhost
+    subject: "[Authelia] {title}"
+    startup_check_address: {{ pillar['authelia']['notifier']['smtp']['sender'] }}
+    disable_require_tls: false
+    disable_html_emails: false
+    tls:
+      skip_verify: false
+      minimum_version: TLS1.2

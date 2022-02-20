@@ -15,7 +15,7 @@ base:
   'vmk-man-01':
     - hosts.vmk-man-01
     - modules.docker.docker
-    - modules.gitea.gitea
+    - modules.management.management
     - modules.acme.acme
   'vmk-ext-01':
     - hosts.vmk-ext-01
