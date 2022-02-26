@@ -23,6 +23,10 @@ generate_{{ certificate['name'] }}_{{ certificate['position'] }}_certificate:
             - CF_Zone_ID: {{ pillar['cloudflare']['zone_id'] }}
             - CF_Token: {{ pillar['cloudflare']['token'] }}
         - creates: /.acme.sh/{{ certificate['name'] }}.{{ certificate['position'] }}.mxard.tech_ecc/{{ certificate['name'] }}.{{ certificate['position'] }}.mxard.tech.cer
+generate_{{ certificate['name'] }}_{{ certificate['position'] }}_haproxy_compatible:
+    cmd.run:
+        - name: cat /.acme.sh/{{ certificate['name'] }}.{{ certificate['position'] }}.mxard.tech_ecc/{{ certificate['name'] }}.{{ certificate['position'] }}.mxard.tech.key /.acme.sh/{{ certificate['name'] }}.{{ certificate['position'] }}.mxard.tech_ecc/fullchain.cer | tee /.acme.sh/{{ certificate['name'] }}.{{ certificate['position'] }}.mxard.tech_ecc/{{ certificate['name'] }}.{{ certificate['position'] }}.mxard.tech.pem > /dev/null
+        - creates: /.acme.sh/{{ certificate['name'] }}.{{ certificate['position'] }}.mxard.tech_ecc/{{ certificate['name'] }}.{{ certificate['position'] }}.mxard.tech.pem
 {% endfor %}
 
 include:
