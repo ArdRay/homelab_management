@@ -29,8 +29,7 @@
 -A DOCKER-USER -m state --state RELATED,ESTABLISHED -j RETURN
 -A DOCKER-USER -s 192.168.0.0/16 -o ens18 -j RETURN -m comment --comment "Outbound docker traffic"
 -A DOCKER-USER -p icmp -j ACCEPT
--A DOCKER-USER -s 192.168.0.0/16 -d 192.168.0.0/16 -p tcp -m tcp --dport 80 -j RETURN -m comment --comment "Inter-docker: drone 80/tcp"
--A DOCKER-USER -s 192.168.0.0/16 -d 192.168.0.0/16 -p tcp -m tcp --dport 443 -j RETURN -m comment --comment "Inter-docker: drone 443/tcp"
+-A DOCKER-USER -s 192.168.0.0/16 -d 192.168.0.0/16 -j RETURN -m comment --comment "Inter-docker communications"
 -A DOCKER-USER -s 10.10.3.0/24 -p tcp -m tcp --dport 80 -m state --state NEW -j RETURN -m comment --comment "from_management: drone 80/tcp"
 -A DOCKER-USER -s 10.10.3.0/24 -p tcp -m tcp --dport 443 -m state --state NEW -j RETURN -m comment --comment "from_management: drone 443/tcp"
 -A DOCKER-USER -s 10.10.2.3/32 -p tcp -m tcp --dport 80 -m state --state NEW -j RETURN -m comment --comment "from_vmk-man-01: drone 80/tcp"
