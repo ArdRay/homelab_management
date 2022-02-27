@@ -18,6 +18,7 @@ base:
     - modules.docker.docker
     - modules.management.management
     - modules.acme.acme
+    - modules.iptables.iptables
   'vmk-ext-01':
     - hosts.vmk-ext-01
     - modules.haproxy.haproxy
