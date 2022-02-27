@@ -12,6 +12,8 @@
 -A INPUT -i lo -j ACCEPT
 -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
 -A INPUT -s 10.10.3.0/24 -j inMON -m comment --comment "Management network"
+-A INPUT -m limit --limit 10/min -j LOG --log-prefix "fw.INPUT " --log-level 6
+-A INPUT -j DROP
 
 ## Management/Monitoring network
 -A inMON -p icmp -j ACCEPT
