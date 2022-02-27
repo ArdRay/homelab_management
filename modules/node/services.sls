@@ -29,8 +29,4 @@ sshd:
 chronyd:
   service.running:
     - enable: True
-## Firewalld
-firewalld:
-  service.running:
-    - enable: True
 {% endif %}

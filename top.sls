@@ -12,6 +12,7 @@ base:
     - modules.docker.docker
     - modules.acme.acme
     - modules.cicd.cicd
+    - modules.iptables.iptables
   'vmk-man-01':
     - hosts.vmk-man-01
     - modules.docker.docker
