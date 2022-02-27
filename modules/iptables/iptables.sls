@@ -7,8 +7,8 @@ install_iptables:
       - iptables
       - iptables-services
 
-remove_firewalld:
-  pkg.absent:
+remove_filewalld:
+  pkg.purged:
     - pkgs:
       - firewalld
 
@@ -26,7 +26,7 @@ iptables_files:
       - /etc/sysconfig/iptables-config:
         - source: salt://modules/iptables/iptables-config
       - /etc/sysconfig/iptables:
-        - source: salt://files/iptables/iptables@@{{ grains['host'] }}
+        - source: salt://files/iptables/iptables@{{ grains['host'] }}
         - check_cmd: /usr/sbin/iptables-restore -t /etc/sysconfig/iptables
   cmd.wait_script:
     - name: /etc/sysconfig/iptables_docker_reload
