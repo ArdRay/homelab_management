@@ -1,0 +1,40 @@
+## Managed by Salt
+## iptables/iptables@vmk-ext-01
+
+*filter
+:INPUT ACCEPT [0:0]
+:FORWARD ACCEPT [0:0]
+:OUTPUT ACCEPT [0:0]
+:inMON  - [0:0]
+:inPRIV - [0:0]
+
+-A INPUT -i lo -j ACCEPT
+-A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
+-A INPUT -s 10.10.3.0/24 -j inMON -m comment --comment "Management network"
+-A INPUT -s 10.10.3.0/24 -j inPRIV -m comment --comment "Management network"
+-A INPUT -m limit --limit 10/min -j LOG --log-prefix "fw.INPUT " --log-level 6
+-A INPUT -j DROP
+
+-A OUTPUT -o lo -j ACCEPT
+-A OUTPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
+-A OUTPUT -p tcp -m state --state NEW -m tcp --dport 80 -j ACCEPT
+-A OUTPUT -p tcp -m state --state NEW -m tcp --dport 443 -j ACCEPT
+-A OUTPUT -p tcp -m state --state NEW -m tcp --dport 4506 -j ACCEPT -m comment --comment "Saltstack Master"
+-A OUTPUT -p udp -m udp --dport 53 -j ACCEPT
+-A OUTPUT -p udp -m udp --dport 123 -j ACCEPT
+-A OUTPUT -m limit --limit 1/min -j LOG --log-prefix "fw.OUTPUT " --log-level 6
+
+## Management/Monitoring network
+-A inMON -p icmp -j ACCEPT
+-A inMON -p tcp -m state --state NEW -m tcp --dport 22 -j ACCEPT
+## no drop at end
+
+## Non/docker services
+-A inPRIV -p icmp -j ACCEPT
+-A inPRIV -p tcp -m state --state NEW -m tcp --dport 80 -j ACCEPT
+-A inPRIV -p tcp -m state --state NEW -m tcp --dport 443 -j ACCEPT
+-A inPRIV -m limit --limit 10/min -j LOG --log-prefix "fw.inPRIV " --log-level 6
+-A inPRIV -j REJECT --reject-with icmp-host-prohibited
+## reject to ease debug
+
+COMMIT

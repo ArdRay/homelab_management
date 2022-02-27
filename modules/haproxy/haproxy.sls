@@ -34,6 +34,10 @@ create_dirs:
         - user: root
         - group: root
         - mode: 744
+      - /usr/local/etc/haproxy/:
+        - user: root
+        - group: root
+        - mode: 744
 
 haproxy:
   user.present:
@@ -49,11 +53,17 @@ haproxy:
         - source: salt://modules/haproxy/haproxy.service
       - /etc/haproxy/haproxy.cfg:
         - source: salt://modules/haproxy/haproxy.cfg
+      - /usr/local/etc/haproxy/http.lua:
+        - source: https://raw.githubusercontent.com/haproxytech/haproxy-lua-http/master/http.lua
+      - /usr/local/etc/haproxy/auth-request.lua:
+        - source: https://raw.githubusercontent.com/TimWolla/haproxy-auth-request/main/auth-request.lua
   service.running:
     - reload: True
     - enable: True
     - watch:
       - file: /etc/haproxy/haproxy.cfg
+      - file: /usr/local/etc/haproxy/http.lua
+      - file: /usr/local/etc/haproxy/auth-request.lua
   cmd.wait:
     - name: systemctl daemon-reload
     - watch:
