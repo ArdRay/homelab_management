@@ -16,10 +16,12 @@
 -A INPUT -m limit --limit 10/min -j LOG --log-prefix "fw.INPUT " --log-level 6
 -A INPUT -j DROP
 
--A OUTPUT -p tcp -m tcp --dport 53 -j RETURN
--A OUTPUT -p tcp -m tcp --dport 80 -j RETURN
--A OUTPUT -p tcp -m tcp --dport 443 -j RETURN
--A OUTPUT -p tcp -m tcp --dport 123 -j RETURN
+-A OUTPUT -o lo -j ACCEPT
+-A OUTPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
+-A OUTPUT -p tcp -m tcp --dport 53 -j ACCEPT
+-A OUTPUT -p tcp -m tcp --dport 80 -j ACCEPT
+-A OUTPUT -p tcp -m tcp --dport 443 -j ACCEPT
+-A OUTPUT -p tcp -m tcp --dport 123 -j ACCEPT
 -A OUTPUT -m limit --limit 1/min -j LOG --log-prefix "fw.OUTPUT " --log-level 6
 
 ## Management/Monitoring network
@@ -29,8 +31,8 @@
 
 ## Non/docker services
 -A inPRIV -p icmp -j ACCEPT
--A inPRIV -p tcp -m tcp --dport 4505 -m state --state NEW -j RETURN -m comment --comment "saltstack master 4505/tcp"
--A inPRIV -p tcp -m tcp --dport 4506 -m state --state NEW -j RETURN -m comment --comment "saltstack master 4506/tcp"
+-A inPRIV -p tcp -m tcp --dport 4505 -m state --state NEW -j ACCEPT -m comment --comment "saltstack master 4505/tcp"
+-A inPRIV -p tcp -m tcp --dport 4506 -m state --state NEW -j ACCEPT -m comment --comment "saltstack master 4506/tcp"
 -A inPRIV -m limit --limit 10/min -j LOG --log-prefix "fw.inPRIV " --log-level 6
 -A inPRIV -j REJECT --reject-with icmp-host-prohibited
 ## reject to ease debug
