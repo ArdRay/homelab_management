@@ -27,7 +27,7 @@ iptables_files:
         - source: salt://modules/iptables/iptables-config
       - /etc/sysconfig/iptables:
         - source: salt://files/iptables/iptables@{{ grains['host'] }}
-        - check_cmd: /usr/sbin/iptables-restore -t /etc/sysconfig/iptables
+        - check_cmd: /usr/sbin/iptables-restore -t 
   cmd.wait_script:
     - name: /etc/sysconfig/iptables_docker_reload
     - source: salt://modules/iptables/iptables_docker_reload
