@@ -18,9 +18,10 @@
 
 -A OUTPUT -o lo -j ACCEPT
 -A OUTPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
+-A OUTPUT -p tcp -m state --state NEW -m tcp --dport 80 -j ACCEPT
+-A OUTPUT -p tcp -m state --state NEW -m tcp --dport 443 -j ACCEPT
+-A OUTPUT -p tcp -m state --state NEW -m tcp --dport 4506 -j ACCEPT -m comment --comment "Saltstack Master"
 -A OUTPUT -p udp -m udp --dport 53 -j ACCEPT
--A OUTPUT -p tcp -m tcp --dport 80 -j ACCEPT
--A OUTPUT -p tcp -m tcp --dport 443 -j ACCEPT
 -A OUTPUT -p udp -m udp --dport 123 -j ACCEPT
 -A OUTPUT -m limit --limit 1/min -j LOG --log-prefix "fw.OUTPUT " --log-level 6
 
