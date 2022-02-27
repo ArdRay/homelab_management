@@ -55,8 +55,10 @@ haproxy:
         - source: salt://modules/haproxy/haproxy.cfg
       - /usr/local/etc/haproxy/http.lua:
         - source: https://raw.githubusercontent.com/haproxytech/haproxy-lua-http/master/http.lua
+        - skip_verify: True
       - /usr/local/etc/haproxy/auth-request.lua:
         - source: https://raw.githubusercontent.com/TimWolla/haproxy-auth-request/main/auth-request.lua
+        - skip_verify: True
   service.running:
     - reload: True
     - enable: True
