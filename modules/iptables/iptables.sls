@@ -16,6 +16,8 @@ iptables:
   service.running:
     - enable: True
     - reload: True
+    - onchanges:
+      - file: /etc/sysconfig/iptables-config
 
 iptables_files:
   file.managed:
@@ -28,11 +30,10 @@ iptables_files:
       - /etc/sysconfig/iptables:
         - source: salt://files/iptables/iptables@{{ grains['host'] }}
         - check_cmd: /usr/sbin/iptables-restore -t 
-  cmd.wait_script:
-    - name: /etc/sysconfig/iptables_docker_reload
-    - source: salt://modules/iptables/iptables_docker_reload
-    - user: root
-    - group: root
-    - mode: 0750
-    - onchanges:
+      - /etc/sysconfig/iptables_docker_reload:
+        - source: salt://modules/iptables/iptables_docker_reload
+        - mode: 0750
+  cmd.wait:
+    - name: bash /etc/sysconfig/iptables_docker_reload
+    - watch:
       - file: /etc/sysconfig/iptables
