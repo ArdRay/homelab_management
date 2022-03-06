@@ -48,3 +48,6 @@ docker:
     - source: https://github.com/docker/compose/releases/download/v2.2.3/docker-compose-linux-x86_64
     - source_hash: https://github.com/docker/compose/releases/download/v2.2.3/docker-compose-linux-x86_64.sha256
     - mode: 755
+
+include:
+    - modules.node.environment
