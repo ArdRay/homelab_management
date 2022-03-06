@@ -9,10 +9,10 @@
       /etc/sysconfig/network-scripts/ifcfg-{{ interface_name }}:
         file.managed:
           - source: salt://files/ifcfg/{{ interface_name }}@{{ grains['host'] }}
-      cmd.wait:
-        - name: systemctl restart NetworkManager
-        - watch:
-          - file: /etc/sysconfig/network-scripts/ifcfg-{{ interface_name }}
+        cmd.wait:
+          - name: systemctl restart NetworkManager
+          - watch:
+            - file: /etc/sysconfig/network-scripts/ifcfg-{{ interface_name }}
 
     {% endif %}
   {% endfor %}
