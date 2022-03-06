@@ -13,7 +13,7 @@
       'systemctl restart NetworkManager':
         cmd.run:
           - onchanges:
-            - file: /etc/sysconfig/network-scripts/{{ filename }}
+            - file: /etc/sysconfig/network-scripts/ifcfg-{{ interface_name }}
 
     {% endif %}
   {% endfor %}
