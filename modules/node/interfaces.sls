@@ -3,7 +3,7 @@
 ---
 {% if grains['os'] == 'Rocky' %}
   {% for filename in salt['cp.list_master'](prefix='files/ifcfg') %}
-    {% if {{ grains['host'] }} in filename %}
+    {% if grains['host'] in filename %}
       {% set interface_name = filename.split('@')[0] %}
 
       /etc/sysconfig/network-scripts/ifcfg-{{ interface_name }}:
@@ -14,7 +14,7 @@
         cmd.run:
           - onchanges:
             - file: /etc/sysconfig/network-scripts/{{ filename }}
-            
+
     {% endif %}
   {% endfor %}
 {% endif %}
