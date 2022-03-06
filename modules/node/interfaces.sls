@@ -4,7 +4,7 @@
 {% if grains['os'] == 'Rocky' %}
   {% for filename in salt['cp.list_master'](prefix='files/ifcfg') %}
     {% if grains['host'] in filename %}
-      {% set interface_name = filename.split('@')[0] %}
+      {% set interface_name = filename.split('/')[3].split('@')[1] %}
 
       /etc/sysconfig/network-scripts/ifcfg-{{ interface_name }}:
         file.managed:
