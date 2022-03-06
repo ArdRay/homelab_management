@@ -10,7 +10,7 @@
         file.managed:
           - source: salt://files/ifcfg/{{ interface_name }}@{{ grains['host'] }}
         cmd.wait:
-          - name: systemctl restart NetworkManager
+          - name: nmcli networking off; nmcli networking on
           - watch:
             - file: /etc/sysconfig/network-scripts/ifcfg-{{ interface_name }}
 
