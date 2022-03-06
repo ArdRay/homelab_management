@@ -38,6 +38,10 @@ create_dirs:
         - user: root
         - group: root
         - mode: 744
+      - /etc/haproxy/certs/:
+        - user: root
+        - group: root
+        - mode: 700
 
 haproxy:
   user.present:
@@ -51,6 +55,7 @@ haproxy:
     - names:
       - /etc/systemd/system/haproxy.service:
         - source: salt://modules/haproxy/haproxy.service
+        - mode: 700
       - /etc/haproxy/haproxy.cfg:
         - source: salt://modules/haproxy/haproxy.cfg
       - /usr/local/etc/haproxy/http.lua:
