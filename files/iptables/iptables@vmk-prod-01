@@ -38,7 +38,8 @@
 ## Docker Network
 -A DOCKER-USER -i lo -j RETURN
 -A DOCKER-USER -m state --state RELATED,ESTABLISHED -j RETURN
--A DOCKER-USER -s 192.168.0.0/16 -o ens18 -j RETURN -m comment --comment "Outbound docker traffic"
+-A DOCKER-USER -s 192.168.0.0/16 -o ens18 -j RETURN -m comment --comment "Outbound docker container traffic"
+-A DOCKER-USER -s 10.200.0.0/24 -o ens18 -p udp -m udp --dport 53 -j RETURN -m comment --comment "Outbound docker daemon DNS traffic"
 -A DOCKER-USER -p icmp -j ACCEPT
 -A DOCKER-USER -s 192.168.0.0/16 -d 192.168.0.0/16 -j RETURN -m comment --comment "Inter-docker communications"
 -A DOCKER-USER -s 10.10.1.0/24,10.10.2.0/24,10.10.3.0/24 -p tcp -m tcp --dport 80 -m state --state NEW -j RETURN -m comment --comment "services 80/tcp"
