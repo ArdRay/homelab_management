@@ -26,6 +26,7 @@ sshkeys:
     - ssh_keys:
       - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINuX2Py5v7WswGOiPvLnBuV+jhDYpl15KrLp9MafgN6e
       - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICquToJ6AELUkLfQLWilvf3uL0O8TJuc5X3p97vGZY96
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJUyusI+16ANkSpIWlpZg6kCdsAtjtscjXUID2M0BrnG
 
 # Ubuntu specific - unlock account for SSH
 {% if grains['os'] == 'Ubuntu' %}
