@@ -47,7 +47,9 @@
 -A DOCKER-USER -s 10.10.1.0/24,10.10.2.0/24,10.10.3.0/24 -p tcp -m tcp --dport 443 -m state --state NEW -j RETURN -m comment --comment "services 443/tcp"
 -A DOCKER-USER -s 10.10.2.0/24 -p tcp -m tcp --dport 3100 -m state --state NEW -j RETURN -m comment --comment "from_services: loki 3100/tcp"
 -A DOCKER-USER -s 10.10.1.0/24 -p tcp -m tcp --dport 2222 -m state --state NEW -j RETURN -m comment --comment "from_printer: SFTP 2222/tcp"
+-A DOCKER-USER -s 192.168.0.0/16 -p udp -m udp --dport 1900 -j DROP -m comment --comment "from_services: qbittorrent SSDP 1900/udp"
 -A DOCKER-USER -m limit --limit 1/sec -j LOG --log-prefix "fw.DOCKER "
 -A DOCKER-USER -j REJECT --reject-with icmp-host-prohibited
 
 COMMIT
+
