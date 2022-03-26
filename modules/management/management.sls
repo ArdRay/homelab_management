@@ -13,8 +13,8 @@ docker_management:
     - name:  https://gitlab.com/khomelab_automation/homelab_services.git
     - target: /opt/management
     - rev: management
-    - https_user: {{ pillar['git_auth']['homelab_services']['management']['user'] }}
-    - https_pass: {{ pillar['git_auth']['homelab_services']['management']['password'] }}
+    - https_user: {{ pillar['git_auth']['homelab_services']['user'] }}
+    - https_pass: {{ pillar['git_auth']['homelab_services']['password'] }}
     - force_reset: True
     - force_clone: True
   file.managed:

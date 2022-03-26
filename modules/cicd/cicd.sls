@@ -13,8 +13,8 @@ docker_cicd:
     - name: https://gitlab.com/khomelab_automation/homelab_services.git
     - target: /opt/cicd
     - rev: cicd
-    - https_user: {{ pillar['git_auth']['homelab_services']['cicd']['user'] }}
-    - https_pass: {{ pillar['git_auth']['homelab_services']['cicd']['password'] }}
+    - https_user: {{ pillar['git_auth']['homelab_services']['user'] }}
+    - https_pass: {{ pillar['git_auth']['homelab_services']['password'] }}
     - force_reset: True
     - force_clone: True
   file.managed:
