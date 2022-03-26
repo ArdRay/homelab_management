@@ -1,10 +1,6 @@
 # -*- coding: utf-8 -*-
 # vim: ft=yaml
 ---
-haproxy:
-  pkg.installed:
-    - version: haproxy-1.8.27-2.el8
-
 # Install Lua from source
 #"cd /tmp && curl -R -O https://www.lua.org/ftp/lua-5.4.4.tar.gz && tar zxf lua-5.4.4.tar.gz && make linux test && make linux install && rm -rf /tmp/lua-5.4.4 && rm /tmp/lua-5.4.4.tar.gz":
 #  cmd.run:
@@ -37,6 +33,8 @@ create_dirs:
         - mode: 700
 
 haproxy:
+  pkg.installed:
+    - version: haproxy-1.8.27-2.el8
   user.present:
     - shell: /sbin/nologin
     - home: /var/lib/haproxy
