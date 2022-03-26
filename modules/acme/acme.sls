@@ -16,7 +16,7 @@ install_acme:
     - creates: /opt/acme/acme.sh
 
 {% for certificate in pillar['certificates'] %}
-    {% if certificate['position'] != 'ext' %}
+    {% if not certificate['position'] == 'ext' %}
         generate_{{ certificate['name'] }}_{{ certificate['position'] }}_{{ certificate['domain'] }}_certificate:
             cmd.run:
             - name: /opt/acme/acme.sh --issue --dns dns_cf --ocsp-must-staple --keylength ec-384 -d {{ certificate['name'] }}.{{ certificate['position'] }}.{{ certificate['domain'] }}
