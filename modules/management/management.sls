@@ -10,11 +10,11 @@
 
 docker_management:
   git.latest:
-    - name:  https://git.int.mxard.tech/ard/homelab_services
+    - name:  https://gitlab.com/doxmael/homelab_services.git
     - target: /opt/management
     - rev: management
-    - https_user: {{ pillar['git_auth']['local_git']['user'] }}
-    - https_pass: {{ pillar['git_auth']['local_git']['password'] }}
+    - https_user: {{ pillar['git_auth']['homelab_services']['management']['user'] }}
+    - https_pass: {{ pillar['git_auth']['homelab_services']['management']['password'] }}
     - force_reset: True
     - force_clone: True
   file.managed:

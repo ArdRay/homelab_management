@@ -10,11 +10,11 @@
 
 docker_cicd:
   git.latest:
-    - name: https://git.int.mxard.tech/ard/homelab_services
+    - name: https://gitlab.com/doxmael/homelab_services.git
     - target: /opt/cicd
     - rev: cicd
-    - https_user: {{ pillar['git_auth']['local_git']['user'] }}
-    - https_pass: {{ pillar['git_auth']['local_git']['password'] }}
+    - https_user: {{ pillar['git_auth']['homelab_services']['cicd']['user'] }}
+    - https_pass: {{ pillar['git_auth']['homelab_services']['cicd']['password'] }}
     - force_reset: True
     - force_clone: True
   file.managed:
