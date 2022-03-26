@@ -64,7 +64,7 @@ haproxy:
     - enable: True
     - watch:
       - file: /etc/haproxy/haproxy.cfg
-      - file: /usr/local/etc/haproxy/http.lua
+      - file: /usr/share/lua/5.3/haproxy-lua-http.lua
       - file: /usr/local/etc/haproxy/auth-request.lua
   cmd.wait:
     - name: systemctl daemon-reload
