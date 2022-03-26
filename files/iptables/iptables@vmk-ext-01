@@ -7,11 +7,11 @@
 :OUTPUT ACCEPT [0:0]
 :inMON  - [0:0]
 :inPRIV - [0:0]
+:DOCKER-USER - [0:0]
 
 -A INPUT -i lo -j ACCEPT
 -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
 -A INPUT -s 10.10.3.0/24 -j inMON -m comment --comment "Management network"
--A INPUT -s 10.10.3.0/24 -j inPRIV -m comment --comment "Management network"
 -A INPUT -m limit --limit 10/min -j LOG --log-prefix "fw.INPUT " --log-level 6
 -A INPUT -j DROP
 
@@ -20,8 +20,8 @@
 -A OUTPUT -p tcp -m state --state NEW -m tcp --dport 80 -j ACCEPT
 -A OUTPUT -p tcp -m state --state NEW -m tcp --dport 443 -j ACCEPT
 -A OUTPUT -p tcp -m state --state NEW -m tcp --dport 4506 -j ACCEPT -m comment --comment "Saltstack Master"
--A OUTPUT -p udp -m udp --dport 53 -j ACCEPT
--A OUTPUT -p udp -m udp --dport 123 -j ACCEPT
+-A OUTPUT -p udp -m state --state NEW -m udp --dport 53 -j ACCEPT
+-A OUTPUT -p udp -m state --state NEW -m udp --dport 123 -j ACCEPT
 -A OUTPUT -m limit --limit 1/min -j LOG --log-prefix "fw.OUTPUT " --log-level 6
 
 ## Management/Monitoring network
@@ -31,10 +31,21 @@
 
 ## Non/docker services
 -A inPRIV -p icmp -j ACCEPT
--A inPRIV -p tcp -m state --state NEW -m tcp --dport 80 -j ACCEPT
--A inPRIV -p tcp -m state --state NEW -m tcp --dport 443 -j ACCEPT
 -A inPRIV -m limit --limit 10/min -j LOG --log-prefix "fw.inPRIV " --log-level 6
 -A inPRIV -j REJECT --reject-with icmp-host-prohibited
 ## reject to ease debug
+
+## Docker Network
+-A DOCKER-USER -i lo -j RETURN
+-A DOCKER-USER -m state --state RELATED,ESTABLISHED -j RETURN
+-A DOCKER-USER -s 192.168.0.0/16 -o ens18 -j RETURN -m comment --comment "Outbound docker traffic"
+-A DOCKER-USER -s 10.200.0.0/24 -o ens18 -p tcp -m multiport --dports 80,443 -j RETURN -m comment --comment "Outbound docker daemon traffic: 80/tcp, 443/tcp"
+-A DOCKER-USER -s 10.200.0.0/24 -o ens18 -p udp -m udp --dport 53 -j RETURN -m comment --comment "Outbound docker daemon traffic: 53/udp"
+-A DOCKER-USER -p icmp -j ACCEPT
+-A DOCKER-USER -s 192.168.0.0/16 -d 192.168.0.0/16 -j RETURN -m comment --comment "Inter-docker communications"
+-A DOCKER-USER -s 10.10.3.0/24 -p tcp -m tcp --dport 81 -m state --state NEW -j RETURN -m comment --comment "from_management: admin_portal 81/tcp"
+-A DOCKER-USER -s 10.10.3.0/24 -p tcp -m multiport --dports 80,443 -m state --state NEW -j RETURN -m comment --comment "from_management: 80/tcp, 443/tcp - Public interfaces"
+-A DOCKER-USER -m limit --limit 1/sec -j LOG --log-prefix "fw.DOCKER "
+-A DOCKER-USER -j REJECT --reject-with icmp-host-prohibited
 
 COMMIT
