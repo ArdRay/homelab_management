@@ -10,7 +10,7 @@
 
 docker_cicd:
   git.latest:
-    - name: https://gitlab.com/doxmael/homelab_services.git
+    - name: https://gitlab.com/khomelab_automation/homelab_services.git
     - target: /opt/cicd
     - rev: cicd
     - https_user: {{ pillar['git_auth']['homelab_services']['cicd']['user'] }}
