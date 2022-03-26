@@ -21,9 +21,8 @@ base:
     - modules.iptables.iptables
   'vmk-ext-01':
     - hosts.vmk-ext-01
-    - modules.docker.docker
     - modules.iptables.iptables
-    - modules.external.external
+    - modules.haproxy.haproxy
   'vmk-srv-01':
     - hosts.vmk-srv-01
     - modules.docker.docker

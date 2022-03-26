@@ -14,14 +14,8 @@ yum-utils:
     - mode: 644
 
 docker-ce:
-  pkg.latest:
-    - refresh: True
-
-docker_packages:
-  pkg.latest:
-    - pkgs:
-      - docker-ce-cli
-      - containerd.io
+  pkg.installed:
+    - version: 20.10.14-3.el8
 
 /etc/docker/:
   file.directory:
