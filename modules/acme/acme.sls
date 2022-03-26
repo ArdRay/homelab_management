@@ -21,8 +21,9 @@ generate_{{ certificate['name'] }}_{{ certificate['position'] }}_{{ certificate[
     cmd.run:
         - name: /opt/acme/acme.sh --issue --dns dns_cf --ocsp-must-staple --keylength ec-384 -d {{ certificate['name'] }}.{{ certificate['position'] }}.{{ certificate['domain'] }}
         - env:
-            - CF_Email: {{ pillar['cloudflare']['email'] }}
-            - CF_Key: {{ pillar['cloudflare']['key'] }}
+            - CF_Token: {{ pillar['cloudflare']['token'] }}
+            - CF_Account_ID: {{ pillar['cloudflare']['account_id'] }}
+            - CF_Zone_ID: {{ pillar['cloudflare']['zone_id'] }}
         - creates: /.acme.sh/{{ certificate['name'] }}.{{ certificate['position'] }}.{{ certificate['domain'] }}_ecc/{{ certificate['name'] }}.{{ certificate['position'] }}.{{ certificate['domain'] }}.cer
 generate_{{ certificate['name'] }}_{{ certificate['position'] }}_{{ certificate['domain'] }}_haproxy_compatible:
     cmd.run:
@@ -33,8 +34,9 @@ generate_{{ certificate['name'] }}_{{ certificate['position'] }}_{{ certificate[
     cmd.run:
         - name: /opt/acme/acme.sh --issue --dns dns_cf --ocsp-must-staple --keylength ec-384 -d {{ certificate['name'] }}.{{ certificate['domain'] }}
         - env:
-            - CF_Email: {{ pillar['cloudflare']['email'] }}
-            - CF_Key: {{ pillar['cloudflare']['key'] }}
+            - CF_Token: {{ pillar['cloudflare']['token'] }}
+            - CF_Account_ID: {{ pillar['cloudflare']['account_id'] }}
+            - CF_Zone_ID: {{ pillar['cloudflare']['zone_id'] }}
         - creates: /.acme.sh/{{ certificate['name'] }}.{{ certificate['domain'] }}_ecc/{{ certificate['name'] }}.{{ certificate['domain'] }}.cer
 generate_{{ certificate['name'] }}_{{ certificate['position'] }}_{{ certificate['domain'] }}_haproxy_compatible:
     cmd.run:
