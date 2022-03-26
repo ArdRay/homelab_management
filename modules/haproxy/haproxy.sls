@@ -34,7 +34,7 @@ create_dirs:
 
 haproxy:
   pkg.installed:
-    - version: haproxy-1.8.27-2.el8
+    - version: 1.8.27-2.el8
   user.present:
     - shell: /sbin/nologin
     - home: /var/lib/haproxy
@@ -46,7 +46,7 @@ haproxy:
     - names:
       - /etc/systemd/system/haproxy.service:
         - source: salt://modules/haproxy/haproxy.service
-        - mode: 700
+        - mode: 644
       - /etc/haproxy/haproxy.cfg:
         - source: salt://modules/haproxy/haproxy.cfg
       - /usr/local/etc/haproxy/http.lua:
