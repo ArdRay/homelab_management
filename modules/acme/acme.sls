@@ -4,15 +4,15 @@
 install_acme:
     cmd.run:
         - name: |
-        cd /tmp
-        git clone https://github.com/acmesh-official/acme.sh.git
-        cd acme.sh
-        ./acme.sh --install \
-        --home /opt/acme \
-        --config-home /opt/acme/config \
-        --email "ard@pm.me"
-        rm -rf /tmp/acme.sh
-        /opt/acme/acme.sh --register-account -m ard@pm.me
+            cd /tmp
+            git clone https://github.com/acmesh-official/acme.sh.git
+            cd acme.sh
+            ./acme.sh --install \
+            --home /opt/acme \
+            --config-home /opt/acme/config \
+            --email "ard@pm.me"
+            rm -rf /tmp/acme.sh
+            /opt/acme/acme.sh --register-account -m ard@pm.me
         - creates: /opt/acme/acme.sh
 
 {% for certificate in pillar['certificates'] %}
