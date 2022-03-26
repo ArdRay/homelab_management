@@ -24,6 +24,9 @@ base:
     - modules.iptables.iptables
   'vmk-srv-01':
     - hosts.vmk-srv-01
+    - modules.docker.docker
+    - modules.iptables.iptables
+    - modules.services.services
   'vmk-rpi-01':
     - hosts.vmk-rpi-01
   'vmk-prod-01':
