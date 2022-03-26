@@ -21,6 +21,7 @@ base:
     - modules.iptables.iptables
   'vmk-ext-01':
     - hosts.vmk-ext-01
+    - modules.acme.acme
     - modules.iptables.iptables
     - modules.haproxy.haproxy
   'vmk-srv-01':
