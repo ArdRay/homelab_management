@@ -28,4 +28,4 @@ docker_services:
     - cwd: /opt/services
     - watch:
       - git: docker_services
-      - file: /opt/cicd/.env
+      - file: /opt/services/.env
