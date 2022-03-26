@@ -16,17 +16,31 @@ install_acme:
         - creates: /opt/acme/acme.sh
 
 {% for certificate in pillar['certificates'] %}
-generate_{{ certificate['name'] }}_{{ certificate['position'] }}_certificate:
-    cmd.run:
-        - name: /opt/acme/acme.sh --issue --dns dns_cf --ocsp-must-staple --keylength ec-384 -d {{ certificate['name'] }}.{{ certificate['position'] }}.mxard.tech
-        - env:
-            - CF_Zone_ID: {{ pillar['cloudflare']['zone_id'] }}
-            - CF_Token: {{ pillar['cloudflare']['token'] }}
-        - creates: /.acme.sh/{{ certificate['name'] }}.{{ certificate['position'] }}.mxard.tech_ecc/{{ certificate['name'] }}.{{ certificate['position'] }}.mxard.tech.cer
-generate_{{ certificate['name'] }}_{{ certificate['position'] }}_haproxy_compatible:
-    cmd.run:
-        - name: cat /.acme.sh/{{ certificate['name'] }}.{{ certificate['position'] }}.mxard.tech_ecc/{{ certificate['name'] }}.{{ certificate['position'] }}.mxard.tech.key /.acme.sh/{{ certificate['name'] }}.{{ certificate['position'] }}.mxard.tech_ecc/fullchain.cer | tee /.acme.sh/{{ certificate['name'] }}.{{ certificate['position'] }}.mxard.tech_ecc/{{ certificate['name'] }}.{{ certificate['position'] }}.mxard.tech.pem > /dev/null
-        - creates: /.acme.sh/{{ certificate['name'] }}.{{ certificate['position'] }}.mxard.tech_ecc/{{ certificate['name'] }}.{{ certificate['position'] }}.mxard.tech.pem
+    {% if certificate['position'] != 'ext' %}
+        generate_{{ certificate['name'] }}_{{ certificate['position'] }}_{{ certificate['domain'] }}_certificate:
+            cmd.run:
+                - name: /opt/acme/acme.sh --issue --dns dns_cf --ocsp-must-staple --keylength ec-384 -d {{ certificate['name'] }}.{{ certificate['position'] }}.{{ certificate['domain'] }}
+                - env:
+                    - CF_Email: {{ pillar['cloudflare']['email'] }}
+                    - CF_Key: {{ pillar['cloudflare']['key'] }}
+                - creates: /.acme.sh/{{ certificate['name'] }}.{{ certificate['position'] }}.{{ certificate['domain'] }}_ecc/{{ certificate['name'] }}.{{ certificate['position'] }}.{{ certificate['domain'] }}.cer
+        generate_{{ certificate['name'] }}_{{ certificate['position'] }}_{{ certificate['domain'] }}_haproxy_compatible:
+            cmd.run:
+                - name: cat /.acme.sh/{{ certificate['name'] }}.{{ certificate['position'] }}.{{ certificate['domain'] }}_ecc/{{ certificate['name'] }}.{{ certificate['position'] }}.{{ certificate['domain'] }}.key /.acme.sh/{{ certificate['name'] }}.{{ certificate['position'] }}.{{ certificate['domain'] }}_ecc/fullchain.cer | tee /.acme.sh/{{ certificate['name'] }}.{{ certificate['position'] }}.{{ certificate['domain'] }}_ecc/{{ certificate['name'] }}.{{ certificate['position'] }}.{{ certificate['domain'] }}.pem > /dev/null
+                - creates: /.acme.sh/{{ certificate['name'] }}.{{ certificate['position'] }}.{{ certificate['domain'] }}_ecc/{{ certificate['name'] }}.{{ certificate['position'] }}.{{ certificate['domain'] }}.pem
+    {% else %}
+        generate_{{ certificate['name'] }}_{{ certificate['position'] }}_{{ certificate['domain'] }}_certificate:
+            cmd.run:
+                - name: /opt/acme/acme.sh --issue --dns dns_cf --ocsp-must-staple --keylength ec-384 -d {{ certificate['name'] }}.{{ certificate['domain'] }}
+                - env:
+                    - CF_Email: {{ pillar['cloudflare']['email'] }}
+                    - CF_Key: {{ pillar['cloudflare']['key'] }}
+                - creates: /.acme.sh/{{ certificate['name'] }}.{{ certificate['domain'] }}_ecc/{{ certificate['name'] }}.{{ certificate['domain'] }}.cer
+        generate_{{ certificate['name'] }}_{{ certificate['position'] }}_{{ certificate['domain'] }}_haproxy_compatible:
+            cmd.run:
+                - name: cat /.acme.sh/{{ certificate['name'] }}.{{ certificate['domain'] }}_ecc/{{ certificate['name'] }}.{{ certificate['domain'] }}.key /.acme.sh/{{ certificate['name'] }}.{{ certificate['domain'] }}_ecc/fullchain.cer | tee /.acme.sh/{{ certificate['name'] }}.{{ certificate['domain'] }}_ecc/{{ certificate['name'] }}.{{ certificate['domain'] }}.pem > /dev/null
+                - creates: /.acme.sh/{{ certificate['name'] }}.{{ certificate['domain'] }}_ecc/{{ certificate['name'] }}.{{ certificate['domain'] }}.pem
+    {% endif %}
 {% endfor %}
 
 include:

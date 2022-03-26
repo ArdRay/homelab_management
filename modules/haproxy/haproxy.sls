@@ -32,6 +32,10 @@ create_dirs:
         - group: root
         - mode: 700
 
+lua-json:
+  pkg.installed:
+    - version: 1.3.2-9.el8
+
 haproxy:
   pkg.installed:
     - version: 1.8.27-2.el8
@@ -49,7 +53,7 @@ haproxy:
         - mode: 644
       - /etc/haproxy/haproxy.cfg:
         - source: salt://modules/haproxy/haproxy.cfg
-      - /usr/local/etc/haproxy/http.lua:
+      - /usr/share/lua/5.3/haproxy-lua-http.lua:
         - source: https://raw.githubusercontent.com/haproxytech/haproxy-lua-http/master/http.lua
         - skip_verify: True
       - /usr/local/etc/haproxy/auth-request.lua:
