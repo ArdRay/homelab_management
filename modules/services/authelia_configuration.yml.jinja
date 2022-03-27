@@ -70,12 +70,18 @@ access_control:
       networks: 10.10.3.0/24
 
   rules:
-    - domain: "emby.mxard.cloud"
+  #  - domain: "emby.mxard.cloud"
+  #    subject:
+  #      - "group:admin"
+  #      - "group:dev"
+  #    policy: one_factor
+    
+    - domain: "emby.int.mxard.cloud"
       subject:
         - "group:admin"
         - "group:dev"
       policy: one_factor
-    
+
     - domain: "idp.mxard.cloud"
       policy: bypass
   
