@@ -15,14 +15,11 @@
     {% endif %}
   {% endfor %}
 {% elif grains['os'] == 'Ubuntu' %}
-  {% set filename = 'netplan@' + grains['host']|string %}
-    {% if filename in salt['cp.list_master'](prefix='files/ifcfg') %}
-      /etc/netplan/00-installer-config.yaml:
-        file.managed:
-          - source: salt://files/ifcfg/netplan@{{ grains['host'] }}
-        cmd.wait:
-          - name: netplan apply
-          - watch:
-            - file: /etc/netplan/00-installer-config.yaml
-    {% endif %}
+  /etc/netplan/00-installer-config.yaml:
+    file.managed:
+      - source: salt://files/ifcfg/netplan@{{ grains['host'] }}
+    cmd.wait:
+      - name: netplan apply
+      - watch:
+        - file: /etc/netplan/00-installer-config.yaml
 {% endif %}
