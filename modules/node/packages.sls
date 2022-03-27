@@ -18,4 +18,6 @@ install_default_packages:
       - vim-enhanced
       {% elif grains['os'] == 'Ubuntu' %}
       - vim
+      - net-tools
+      - iputils-ping
       {% endif %}

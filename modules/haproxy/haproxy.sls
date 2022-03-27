@@ -34,11 +34,11 @@ create_dirs:
 
 lua-json:
   pkg.installed:
-    - version: 1.3.2-9.el8
+    - version: 1.3.4-2
 
 haproxy:
   pkg.installed:
-    - version: 1.8.27-2.el8
+    - version: 2.2.9-2ubuntu2.1
   user.present:
     - shell: /sbin/nologin
     - home: /var/lib/haproxy

@@ -1,0 +1,30 @@
+network:
+  ethernets:
+    ens18:
+      addresses:
+      - 10.10.2.6/24
+      - 10.10.2.206/24
+      routes:
+      - to: default
+        via: 10.10.2.1
+        metric: 50
+      nameservers:
+        addresses:
+        - 10.10.2.1
+        search: []
+    ens19: {}
+  version: 2
+  vlans:
+    ens19.500:
+      addresses:
+      - 10.10.5.2/24
+      routes:
+      - to: default
+        via: 10.10.5.1
+        metric: 150
+      id: 500
+      link: ens19
+      nameservers:
+        addresses:
+        - 10.10.5.1
+        search: []
