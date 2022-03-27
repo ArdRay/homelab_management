@@ -14,7 +14,6 @@ install_default_packages:
       - rsync
       - htop
       - cron
-      - crontab
       - iptables
       - net-tools
       {% if grains['os'] == 'Rocky' %}
