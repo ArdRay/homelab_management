@@ -27,6 +27,8 @@ docker_services:
         - source: salt://modules/services/authelia_configuration.yml.jinja
       - /opt/services/grafana/ldap.toml:
         - source: salt://modules/services/grafana_configuration.toml.jinja
+      - /opt/services/dns/config.yml:
+        - source: salt://modules/shared/dns_config.yml
   cmd.wait:
     - name: docker-compose up -d --force-recreate --remove-orphans
     - cwd: /opt/services
@@ -35,3 +37,4 @@ docker_services:
       - file: /opt/services/.env
       - file: /opt/services/authelia_server/configuration.yml
       - file: /opt/services/grafana/ldap.toml
+      - file: /opt/services/dns/config.yml
