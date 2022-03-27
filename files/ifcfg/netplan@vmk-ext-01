@@ -24,7 +24,3 @@ network:
         metric: 150
       id: 500
       link: ens19
-      nameservers:
-        addresses:
-        - 10.10.5.1
-        search: []
