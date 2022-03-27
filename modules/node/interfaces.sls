@@ -25,5 +25,4 @@
           - watch:
             - file: /etc/netplan/00-installer-config.yaml
     {% endif %}
-  {% endfor %}
 {% endif %}
