@@ -7,7 +7,6 @@
   {% set iptables_file = '/etc/iptables/rules.v4' %}
 {% endif %}
 
-{% if grains['os'] == 'Rocky' %}
 iptables:
   service.running:
     - enable: True
