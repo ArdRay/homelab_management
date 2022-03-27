@@ -13,7 +13,6 @@ install_default_packages:
       - git
       - rsync
       - htop
-      - cron
       - iptables
       - net-tools
       {% if grains['os'] == 'Rocky' %}
@@ -22,6 +21,7 @@ install_default_packages:
       - iptables-services
       {% elif grains['os'] == 'Ubuntu' %}
       - vim
+      - cron
       - iptables-persistent
       - iputils-ping
       {% endif %}
