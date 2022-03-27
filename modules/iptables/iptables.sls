@@ -1,17 +1,6 @@
 # -*- coding: utf-8 -*-
 # vim: ft=yaml
 ---
-install_iptables:
-  pkg.latest:
-    - pkgs:
-      - iptables
-      - iptables-services
-
-remove_filewalld:
-  pkg.purged:
-    - pkgs:
-      - firewalld
-
 iptables:
   service.running:
     - enable: True

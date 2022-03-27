@@ -13,11 +13,21 @@ install_default_packages:
       - git
       - rsync
       - htop
+      - cron
+      - crontab
+      - iptables
+      - net-tools
       {% if grains['os'] == 'Rocky' %}
       - pinentry
       - vim-enhanced
+      - iptables-services
       {% elif grains['os'] == 'Ubuntu' %}
       - vim
-      - net-tools
+      - iptables-persistent
       - iputils-ping
       {% endif %}
+
+remove_default_packageds:
+  pkg.purged:
+    - pkgs:
+      - firewalld
