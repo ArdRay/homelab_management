@@ -75,6 +75,9 @@ access_control:
         - "group:admin"
         - "group:dev"
       policy: one_factor
+    
+    - domain: "idp.mxard.cloud"
+      policy: bypass
   
 session:
   name: authelia_session
