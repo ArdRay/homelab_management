@@ -49,7 +49,6 @@
 -A DOCKER-USER -s 10.10.3.0/24 -p tcp -m tcp --dport 443 -m state --state NEW -j RETURN -m comment --comment "from_management: haproxy 443/tcp"
 -A DOCKER-USER -s 10.10.3.0/24 -p tcp -m tcp --dport 2222 -m state --state NEW -j RETURN -m comment --comment "from_management: haproxy -> gitea 2222/tcp"
 -A DOCKER-USER -s 10.10.3.0/24 -p tcp -m tcp --dport 8080 -m state --state NEW -j RETURN -m comment --comment "from_management: haproxy stats 8080/tcp"
--A DOCKER-USER -s 10.10.2.0/24 -p tcp -m tcp --dport 443 -m state --state NEW -j RETURN -m comment --comment "from_salt_minions: 443/tcp"
 -A DOCKER-USER -m limit --limit 1/sec -j LOG --log-prefix "fw.DOCKER "
 -A DOCKER-USER -j REJECT --reject-with icmp-host-prohibited
 

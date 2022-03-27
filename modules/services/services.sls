@@ -23,9 +23,15 @@ docker_services:
       - /opt/services/.env:
         - source: salt://modules/services/env.jinja
         - show_changes: False
+      - /opt/services/authelia_server/configuration.yml:
+        - source: salt://modules/services/authelia_configuration.yml.jinja
+      - /opt/services/grafana/ldap.toml:
+        - source: salt://modules/services/grafana_configuration.toml.jinja
   cmd.wait:
     - name: docker-compose up -d --force-recreate --remove-orphans
     - cwd: /opt/services
     - watch:
       - git: docker_services
       - file: /opt/services/.env
+      - file: /opt/services/authelia_server/configuration.yml
+      - file: /opt/services/grafana/ldap.toml

@@ -1,0 +1,36 @@
+[[servers]]
+# Ldap server host (specify multiple hosts space separated)
+host = "ldap_proxy"
+port = 389
+use_ssl = false
+start_tls = false
+ssl_skip_verify = false
+
+bind_dn = "uid=ldap_bind,ou=Users,{{ pillar['ldap']['base_dn'] }}"
+bind_password = '{{ pillar['ldap']['bind_password'] }}'
+
+search_filter = "(&(uid=%s)(objectClass=person))"
+
+# An array of base dns to search through
+search_base_dns = ["{{ pillar['ldap']['base_dn'] }}"]
+
+# Specify names of the LDAP attributes your LDAP uses
+[servers.attributes]
+member_of = "memberOf"
+email =  "mail"
+username = "uid"
+name = "givenName"
+surname = "sn"
+
+[[servers.group_mappings]]
+group_dn = "cn=admin,ou=Users,{{ pillar['ldap']['base_dn'] }}"
+org_role = "Admin"
+grafana_admin = true
+
+[[servers.group_mappings]]
+group_dn = "cn=dev,ou=Users,{{ pillar['ldap']['base_dn'] }}"
+org_role = "Editor"
+
+[[servers.group_mappings]]
+group_dn = "cn=user,ou=Users,{{ pillar['ldap']['base_dn'] }}"
+org_role = "Viewer"
