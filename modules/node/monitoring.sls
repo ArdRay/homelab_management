@@ -11,14 +11,14 @@ node_exporter:
 # Install node_exporter
 {% set node_version = '1.3.1' %}
 
-"curl -o /tmp/node_exporter.tar.gz -L "https://github.com/prometheus/node_exporter/releases/download/v{{ node_version }}/node_exporter-{{ node_version }}.linux-amd64.tar.gz" && \
-tar -xvzf /tmp/node_exporter.tar.gz node_exporter-{{ node_version }}.linux-amd64/node_exporter && \
-mv /tmp/node_exporter-{{ node_version }}.linux-amd64/node_exporter /usr/local/bin/ && \
-rm -rf /tmp/node_exporter*":
-    cmd.run:
-        - unless: node_exporter --version | grep 'version {{ node_version }}'
-
 node_exporter:
+    cmd.run: 
+        - name: |
+            curl -o /tmp/node_exporter.tar.gz -L "https://github.com/prometheus/node_exporter/releases/download/v{{ node_version }}/node_exporter-{{ node_version }}.linux-amd64.tar.gz"
+            tar -xvzf /tmp/node_exporter.tar.gz node_exporter-{{ node_version }}.linux-amd64/node_exporter
+            mv /tmp/node_exporter-{{ node_version }}.linux-amd64/node_exporter /usr/local/bin/
+            rm -rf /tmp/node_exporter*
+        - unless: node_exporter --version | grep 'version {{ node_version }}'
     file.managed:
         - user: root
         - group: root
