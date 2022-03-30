@@ -2,16 +2,14 @@
 # vim: ft=yaml
 ---
 
+# Install node_exporter
+{% set node_version = '1.3.1' %}
+
 node_exporter:
     user.present:
         - shell: /sbin/nologin
         - createhome: False
         - system: True
-
-# Install node_exporter
-{% set node_version = '1.3.1' %}
-
-node_exporter:
     cmd.run: 
         - name: |
             curl -o /tmp/node_exporter.tar.gz -L "https://github.com/prometheus/node_exporter/releases/download/v{{ node_version }}/node_exporter-{{ node_version }}.linux-amd64.tar.gz"
