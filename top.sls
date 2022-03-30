@@ -29,6 +29,7 @@ base:
     - modules.docker.docker
     - modules.iptables.iptables
     - modules.services.services
+    - modules.node.monitoring
   'vmk-rpi-01':
     - hosts.vmk-rpi-01
   'vmk-prod-01':
