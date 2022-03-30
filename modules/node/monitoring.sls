@@ -35,6 +35,8 @@ node_exporter:
         - enable: True
         - watch:
             - file: /etc/sysconfig/node_exporter
+
+exporter_service:
     cmd.wait:
         - name: systemctl daemon-reload
         - watch:
