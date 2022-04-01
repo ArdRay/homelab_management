@@ -9,9 +9,9 @@ customDNS:
     git.int.mxard.tech: 10.10.2.3
     drone.int.mxard.tech: 10.10.2.2
     idp.mxard.cloud: 10.10.2.8
-    .int.mxard.tech: 10.10.2.7
-    .int.mxard.cloud: 10.10.2.8
-    .mxard.cloud: 10.10.2.6
+    int.mxard.tech: 10.10.2.7
+    int.mxard.cloud: 10.10.2.8
+    mxard.cloud: 10.10.2.6
 blocking:
   blackLists:
     ads:

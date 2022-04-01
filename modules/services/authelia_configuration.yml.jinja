@@ -68,23 +68,18 @@ access_control:
         - 10.10.3.0/24
     - name: internal_management
       networks: 10.10.3.0/24
+    - name: haproxy
+      networks: 
+        - 10.10.2.6/24
+        - 10.10.5.2/24
 
   rules:
-  #  - domain: "emby.mxard.cloud"
-  #    subject:
-  #      - "group:admin"
-  #      - "group:dev"
-  #    policy: one_factor
-    
     - domain: "emby.int.mxard.cloud"
       subject:
         - "group:admin"
         - "group:dev"
       policy: one_factor
-
-    - domain: "idp.mxard.cloud"
-      policy: bypass
-  
+    
 session:
   name: authelia_session
   domain: mxard.cloud
