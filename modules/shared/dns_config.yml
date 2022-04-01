@@ -6,6 +6,7 @@ upstream:
     - https://doh-ch.blahdns.com:4443/dns-query
 customDNS:
   mapping:
+    vmk-srv-01: 10.10.2.8
     git.int.mxard.tech: 10.10.2.3
     drone.int.mxard.tech: 10.10.2.2
     idp.mxard.cloud: 10.10.2.8
