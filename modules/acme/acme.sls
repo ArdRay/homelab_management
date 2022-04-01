@@ -42,6 +42,9 @@ generate_{{ certificate['name'] }}_{{ certificate['position'] }}_{{ certificate[
     cmd.run:
         - name: cat /.acme.sh/{{ certificate['name'] }}.{{ certificate['domain'] }}_ecc/{{ certificate['name'] }}.{{ certificate['domain'] }}.key /.acme.sh/{{ certificate['name'] }}.{{ certificate['domain'] }}_ecc/fullchain.cer | tee /.acme.sh/{{ certificate['name'] }}.{{ certificate['domain'] }}_ecc/{{ certificate['name'] }}.{{ certificate['domain'] }}.pem > /dev/null
         - creates: /.acme.sh/{{ certificate['name'] }}.{{ certificate['domain'] }}_ecc/{{ certificate['name'] }}.{{ certificate['domain'] }}.pem
+    file.symlink:
+        - name: /etc/haproxy/certs/{{ certificate['name'] }}.{{ certificate['domain'] }}.pem
+        - target: /.acme.sh/{{ certificate['name'] }}.{{ certificate['domain'] }}_ecc/{{ certificate['name'] }}.{{ certificate['domain'] }}.pem
 {% endif %}
 {% endfor %}
 
