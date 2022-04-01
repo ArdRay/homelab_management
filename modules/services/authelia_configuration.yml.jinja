@@ -79,7 +79,12 @@ access_control:
         - "group:admin"
         - "group:dev"
       policy: one_factor
-    
+
+    - domain: "prometheus.int.mxard.cloud"
+      subject:
+        - "group:admin"
+      policy: one_factor
+
 session:
   name: authelia_session
   domain: mxard.cloud
