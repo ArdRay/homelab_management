@@ -30,6 +30,7 @@ node_exporter:
                 - user: node_exporter
                 - group: node_exporter
                 - mode: 755
+                - replace: False
     service.running:
         - reload: True
         - enable: True
