@@ -17,7 +17,6 @@ base:
   'vmk-man-01':
     - hosts.vmk-man-01
     - modules.docker.docker
-    - modules.management.management
     - modules.acme.acme
     - modules.iptables.iptables
     - modules.node.monitoring

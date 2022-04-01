@@ -5,6 +5,7 @@
 :INPUT ACCEPT [0:0]
 :FORWARD ACCEPT [0:0]
 :OUTPUT ACCEPT [0:0]
+:inMAN  - [0:0]
 :inMON  - [0:0]
 :inPRIV - [0:0]
 :DOCKER-USER - [0:0]
