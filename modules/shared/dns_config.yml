@@ -6,13 +6,38 @@ upstream:
     - https://doh-ch.blahdns.com:4443/dns-query
 customDNS:
   mapping:
+    vmk-cicd-01: 10.10.2.2
+    vmk-man-01: 10.10.2.3
+    vmk-prod-02: 10.10.2.5
+    vmk-ext-01: 10.10.2.6
+    vmk-prod-01: 10.10.2.7
     vmk-srv-01: 10.10.2.8
-    git.int.mxard.tech: 10.10.2.3
-    drone.int.mxard.tech: 10.10.2.2
-    idp.mxard.cloud: 10.10.2.8
-    int.mxard.tech: 10.10.2.7
-    int.mxard.cloud: 10.10.2.8
-    mxard.cloud: 10.10.2.6
+    vmk-rpi-01: 10.10.2.9
+    
+    proxy-srv.int.mxard.cloud: 10.10.2.8
+    git.int.mxard.cloud: 10.10.2.8
+    idp.int.mxard.cloud: 10.10.2.8
+    proxy.int.mxard.cloud: 10.10.2.8
+    prometheus.int.mxard.cloud: 10.10.2.8
+    grafana.int.mxard.cloud: 10.10.2.8
+    loki.int.mxard.cloud: 10.10.2.8
+
+    proxy-01.int.mxard.cloud: 10.10.2.7
+    downloader.int.mxard.cloud: 10.10.2.7
+    flared.int.mxard.cloud: 10.10.2.7
+    rente.int.mxard.cloud: 10.10.2.7
+    emby.int.mxard.cloud: 10.10.2.7
+    series.int.mxard.cloud: 10.10.2.7
+    movies.int.mxard.cloud: 10.10.2.7
+    jaeckli.int.mxard.cloud: 10.10.2.7
+    dashboard.int.mxard.cloud: 10.10.2.7
+    rss.int.mxard.cloud: 10.10.2.7
+    cloud.int.mxard.cloud: 10.10.2.7
+
+    proxy-02.int.mxard.cloud: 10.10.2.5
+    core.int.mxard.cloud: 10.10.2.5
+
+    drone.int.mxard.cloud: 10.10.2.2
 blocking:
   blackLists:
     ads:
