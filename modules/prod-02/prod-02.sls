@@ -29,8 +29,8 @@ docker_related_folders:
       - /data/tor_services/bitcoin:
         - user: 100
         - group: 65533
-        - dir_mode: 660
-        - file_mode: 660
+        - dir_mode: 700
+        - file_mode: 600
         - recurse:
           - user
           - group
