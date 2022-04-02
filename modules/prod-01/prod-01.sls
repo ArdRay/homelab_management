@@ -33,9 +33,17 @@ docker_prod_01:
       - /opt/prod/.env:
         - source: salt://modules/prod-01/env.jinja
         - show_changes: False
+      - /opt/prod/rente/index.html:
+        - source: salt://modules/prod-01/rente/index.html.jinja
+        - show_changes: False
+      - /opt/prod/sftp/sftp.json:
+        - source: salt://modules/prod-01/sftp/sftp.json.jinja
+        - show_changes: False
   cmd.wait:
     - name: docker-compose up -d --force-recreate --remove-orphans
     - cwd: /opt/prod
     - watch:
       - git: docker_prod_01
       - file: /opt/prod/.env
+      - file: /opt/prod/rente/index.html
+      - file: /opt/prod/sftp/sftp.json

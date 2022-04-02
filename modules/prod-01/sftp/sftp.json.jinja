@@ -1,0 +1,15 @@
+{
+    "Global": {
+        "Chroot": {
+            "Directory": "%h",
+            "StartPath": "sftp"
+        },
+        "Directories": ["sftp"]
+    },
+    "Users": [
+        {
+            "Username": "lexmark",
+            "Password": "{{ pillar['git_auth']['homelab_services']['user'] }}"
+        }
+    ]
+}
