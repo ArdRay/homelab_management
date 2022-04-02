@@ -44,3 +44,4 @@ base:
     - modules.docker.docker
     - modules.iptables.iptables
     - modules.node.monitoring
+    - modules.prod-02.prod-02
