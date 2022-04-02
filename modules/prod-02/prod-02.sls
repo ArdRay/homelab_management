@@ -18,6 +18,29 @@ ensure_loki_driver_exists:
     - name: docker plugin install grafana/loki-docker-driver:latest --alias loki --grant-all-permissions
     - unless: docker plugin ls | grep 'Loki Logging Driver'
 
+docker_related_folders:
+  file.directory:
+    - names:
+      - /data_ssd/bitcoin:
+        - user: 1000
+        - group: 1000
+        - dir_mode: 755
+        - file_mode: 644
+        - recurse:
+          - user
+          - group
+          - mode
+      - /data/tor_services:
+        - user: 100
+        - group: 65533
+        - dir_mode: 755
+        - file_mode: 644
+        - recurse:
+          - user
+          - group
+          - mode
+
+
 docker_prod_02:
   git.latest:
     - name: https://gitlab.com/khomelab_automation/homelab_services.git
