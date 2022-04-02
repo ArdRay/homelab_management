@@ -8,6 +8,11 @@
     - mode: 740
     - makedirs: True
 
+ensure_proxy_interface_exists:
+  cmd.run:
+    - name: docker network create t2_proxy
+    - unless: docker network ls | grep t2_proxy
+
 docker_prod_02:
   git.latest:
     - name: https://gitlab.com/khomelab_automation/homelab_services.git
