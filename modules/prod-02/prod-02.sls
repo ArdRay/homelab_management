@@ -26,10 +26,6 @@ docker_related_folders:
         - group: 1000
         - dir_mode: 755
         - file_mode: 644
-        - recurse:
-          - user
-          - group
-          - mode
       - /data/tor_services/bitcoin:
         - user: 100
         - group: 65533
@@ -40,7 +36,6 @@ docker_related_folders:
           - group
           - mode
         - makedirs: True
-
 
 docker_prod_02:
   git.latest:
