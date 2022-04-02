@@ -30,7 +30,7 @@ docker_related_folders:
           - user
           - group
           - mode
-      - /data/tor_services:
+      - /data/tor_services/bitcoin:
         - user: 100
         - group: 65533
         - dir_mode: 755
@@ -39,6 +39,7 @@ docker_related_folders:
           - user
           - group
           - mode
+        - makedirs: True
 
 
 docker_prod_02:
