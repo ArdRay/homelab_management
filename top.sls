@@ -39,3 +39,8 @@ base:
     - modules.docker.docker
     - modules.iptables.iptables
     - modules.node.monitoring
+  'vmk-prod-02':
+    - hosts.vmk-prod-02
+    - modules.docker.docker
+    - modules.iptables.iptables
+    - modules.node.monitoring
