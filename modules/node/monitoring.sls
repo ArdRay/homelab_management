@@ -44,7 +44,7 @@ node_exporter:
         - watch:
             - file: /etc/sysconfig/node_exporter
 
-{% if grains['selinux']['enabled'] == 'True' %}
+{% if grains['selinux']['enabled'] == True %}
 node_exporter_selinux_fcontext:
     selinux.fcontext_policy_present:
         - name: '/usr/local/bin/node_exporter'
