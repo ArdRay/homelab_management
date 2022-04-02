@@ -53,7 +53,7 @@
 -A DOCKER-USER -p icmp -j ACCEPT
 -A DOCKER-USER -s 192.168.0.0/16 -d 192.168.0.0/16 -j RETURN -m comment --comment "Inter-docker communications"
 -A DOCKER-USER -s 10.10.1.0/24,10.10.2.0/24,10.10.3.0/24 -p tcp -m multiport --dports 80,443 -m state --state NEW -j RETURN -m comment --comment "from_all: 80/tcp, 443/tcp"
--A DOCKER-USER -s 10.10.3.0/24 -p tcp -m tcp --dport 22 -m state --state NEW -j RETURN -m comment --comment "from_management: 2222/tcp - gitea-ssh"
+-A DOCKER-USER -s 10.10.3.0/24 -p tcp -m tcp --dport 2222 -m state --state NEW -j RETURN -m comment --comment "from_management: 2222/tcp - gitea-ssh"
 -A DOCKER-USER -s 10.10.1.0/24,10.10.2.0/24,10.10.3.0/24 -p tcp -m tcp --dport 53 -m state --state NEW -j RETURN -m comment --comment "from_all: 53/tcp"
 -A DOCKER-USER -s 10.10.1.0/24,10.10.2.0/24,10.10.3.0/24 -p udp -m udp --dport 53 -m state --state NEW -j RETURN -m comment --comment "from_all: 53/udp"
 -A DOCKER-USER -s 10.10.1.0/24,10.10.2.0/24,10.10.3.0/24 -p tcp -m tcp --dport 3100 -m state --state NEW -j RETURN -m comment --comment "from_all: 3100/tcp - loki"
