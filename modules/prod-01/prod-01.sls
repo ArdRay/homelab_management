@@ -39,7 +39,7 @@ docker_prod_01:
       - /opt/prod/sftp/sftp.json:
         - source: salt://modules/prod-01/sftp/sftp.json.jinja
         - show_changes: False
-      - /opt/services/dns/config.yml:
+      - /opt/prod/dns/config.yml:
         - source: salt://modules/shared/dns_config.yml
   cmd.wait:
     - name: docker-compose up -d --force-recreate --remove-orphans
