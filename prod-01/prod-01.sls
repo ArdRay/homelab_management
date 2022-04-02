@@ -13,6 +13,11 @@ ensure_proxy_interface_exists:
     - name: docker network create t2_proxy
     - unless: docker network ls | grep t2_proxy
 
+ensure_loki_driver_exists:
+  cmd.run:
+    - name: docker plugin install grafana/loki-docker-driver:latest --alias loki --grant-all-permissions
+    - unless: docker plugin ls | grep 'Loki Logging Driver'
+
 docker_prod_01:
   git.latest:
     - name: https://gitlab.com/khomelab_automation/homelab_services.git
