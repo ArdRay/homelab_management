@@ -44,13 +44,17 @@ node_exporter:
         - watch:
             - file: /etc/sysconfig/node_exporter
 
-{% if grains['selinux']['enabled'] == True %}
-node_exporter_selinux_fcontext:
-    selinux.fcontext_policy_present:
-        - name: '/usr/local/bin/node_exporter'
-        - sel_type: bin_t
+{% if if grains['selinux'] is defined %}
+    {% if grains['selinux']['enabled'] == True %}
+    node_exporter_selinux_fcontext:
+        selinux.fcontext_policy_present:
+            - name: '/usr/local/bin/node_exporter'
+            - sel_type: bin_t
 
-node_exporter_selinux_fcontext_applied:
-    selinux.fcontext_policy_applied:
-        - name: '/usr/local/bin/node_exporter'
+    node_exporter_selinux_fcontext_applied:
+        selinux.fcontext_policy_applied:
+            - name: '/usr/local/bin/node_exporter'
+    {% endif %}
 {% endif %}
+
+
