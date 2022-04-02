@@ -44,7 +44,7 @@ node_exporter:
         - watch:
             - file: /etc/sysconfig/node_exporter
 
-{% if if grains['selinux'] is defined %}
+{% if grains['selinux'] is defined %}
     {% if grains['selinux']['enabled'] == True %}
     node_exporter_selinux_fcontext:
         selinux.fcontext_policy_present:
