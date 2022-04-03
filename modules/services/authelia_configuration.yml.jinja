@@ -90,6 +90,25 @@ access_control:
         - "group:dev"
       policy: one_factor
 
+    - domain: "rente.int.mxard.cloud"
+      subject:
+        - "group:admin"
+        - "group:dev"
+      policy: one_factor
+
+    - domain: "dashboard.int.mxard.cloud"
+      subject:
+        - "group:admin"
+        - "group:dev"
+      policy: one_factor
+    
+    - domain: "downloader.int.mxard.cloud"
+      subject:
+        - "group:admin"
+        - "group:dev"
+      policy: one_factor
+
+
 session:
   name: authelia_session
   domain: int.mxard.cloud
