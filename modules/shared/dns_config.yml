@@ -24,7 +24,6 @@ customDNS:
 
     proxy-01.int.mxard.cloud: 10.10.2.7
     downloader.int.mxard.cloud: 10.10.2.7
-    flared.int.mxard.cloud: 10.10.2.7
     rente.int.mxard.cloud: 10.10.2.7
     emby.int.mxard.cloud: 10.10.2.7
     series.int.mxard.cloud: 10.10.2.7
@@ -36,6 +35,7 @@ customDNS:
 
     proxy-02.int.mxard.cloud: 10.10.2.5
     core.int.mxard.cloud: 10.10.2.5
+    electrs.int.mxard.cloud: 10.10.2.5
 
     drone.int.mxard.cloud: 10.10.2.2
 blocking:
