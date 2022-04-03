@@ -2,7 +2,6 @@
 ---
 theme: dark
 jwt_secret: {{ pillar['authelia']['jwt_secret'] }}
-# default_redirection_url: https://idp.mxard.cloud
 
 server:
   host: 0.0.0.0
@@ -93,11 +92,11 @@ access_control:
 
 session:
   name: authelia_session
-  domain: mxard.cloud
+  domain: mxard.int.cloud
   same_site: lax
   secret: {{ pillar['authelia']['session']['secret'] }}
-  expiration: 1h
-  inactivity: 15m
+  expiration: 2h
+  inactivity: 1h
   remember_me_duration: 8h
 
   redis:
@@ -127,21 +126,3 @@ storage:
       root_certificate: disable
       certificate: disable
       key: disable
-
-notifier:
-  disable_startup_check: false
-  smtp:
-    host: email-smtp.eu-central-1.amazonaws.com
-    port: 25
-    timeout: 5s
-    username: AKIAY2MDD5XKVJWEKKUM
-    password: {{ pillar['authelia']['notifier']['smtp']['password'] }}
-    sender: "{{ pillar['authelia']['notifier']['smtp']['sender'] }}"
-    identifier: localhost
-    subject: "[Authelia] {title}"
-    startup_check_address: {{ pillar['authelia']['notifier']['smtp']['sender'] }}
-    disable_require_tls: false
-    disable_html_emails: false
-    tls:
-      skip_verify: false
-      minimum_version: TLS1.2
