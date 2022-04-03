@@ -35,14 +35,15 @@ node_exporter:
                 - mode: 755
                 - replace: False
     cmd.wait:
-        - name: systemctl daemon-reload
-        - watch:
-            - file: /etc/systemd/system/node_exporter.service
+        - names: 
+            - systemctl daemon-reload:
+                - watch:
+                    - file: /etc/systemd/system/node_exporter.service
+            - systemctl restart node_exporter:
+                - watch:
+                    - file: /etc/sysconfig/node_exporter
     service.running:
-        - reload: True
         - enable: True
-        - watch:
-            - file: /etc/sysconfig/node_exporter
 
 {% if grains['selinux'] is defined %}
 {% if grains['selinux']['enabled'] == True %}
