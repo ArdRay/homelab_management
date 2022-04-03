@@ -85,6 +85,12 @@ access_control:
         - "group:admin"
       policy: one_factor
 
+    - domain: "rss.int.mxard.cloud"
+      subject:
+        - "group:admin"
+        - "group:dev"
+      policy: one_factor
+
 session:
   name: authelia_session
   domain: mxard.cloud
