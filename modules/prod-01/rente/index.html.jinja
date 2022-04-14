@@ -10,7 +10,7 @@
         var jsonData = $.ajax({
           type: "POST",
           url: "{{ pillar['rente']['url'] }}",
-          data: "{{ pillar['rente']['data'] }}",
+          data: '{{ pillar['rente']['data'] }}',
           dataType: "json",
           async: false
           }).responseText;
