@@ -49,3 +49,4 @@ docker_prod_01:
       - file: /opt/prod/.env
       - file: /opt/prod/rente/index.html
       - file: /opt/prod/sftp/sftp.json
+      - file: /opt/prod/dns/config.yml
