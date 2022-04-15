@@ -36,6 +36,7 @@ customDNS:
     proxy-02.int.mxard.cloud: 10.10.2.5
     core.int.mxard.cloud: 10.10.2.5
     electrs.int.mxard.cloud: 10.10.2.5
+    mempool.int.mxard.cloud: 10.10.2.5
 
     drone.int.mxard.cloud: 10.10.2.2
 blocking:
