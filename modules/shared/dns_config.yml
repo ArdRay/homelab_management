@@ -21,7 +21,6 @@ customDNS:
     prometheus.int.mxard.cloud: 10.10.2.8
     grafana.int.mxard.cloud: 10.10.2.8
     loki.int.mxard.cloud: 10.10.2.8
-    healthchecks.int.mxard.cloud: 10.10.2.8
 
     proxy-01.int.mxard.cloud: 10.10.2.7
     downloader.int.mxard.cloud: 10.10.2.7
@@ -40,6 +39,8 @@ customDNS:
     mempool.int.mxard.cloud: 10.10.2.5
 
     drone.int.mxard.cloud: 10.10.2.2
+
+    healthchecks.int.mxard.cloud: 10.10.2.9
 blocking:
   blackLists:
     ads:
