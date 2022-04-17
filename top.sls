@@ -32,6 +32,7 @@ base:
     - modules.node.monitoring
   'vmk-rpi-01':
     - hosts.vmk-rpi-01
+    - modules.rpi-01.healthchecks
   'vmk-prod-01':
     - hosts.vmk-prod-01
     - modules.docker.docker
