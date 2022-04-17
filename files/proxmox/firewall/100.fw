@@ -1,0 +1,7 @@
+# TODO: Not currently automated.
+# /etc/pve/firewall
+
+[RULES]
+
+IN ACCEPT -i net0 -source 10.10.3.0/24 -p tcp -dport 22 -log nolog
+
