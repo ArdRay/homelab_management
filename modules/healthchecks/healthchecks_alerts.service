@@ -1,0 +1,14 @@
+[Unit]
+Description=Healthchecks alerting
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=ops
+Group=ops
+EnvironmentFile=/etc/sysconfig/healthchecks_alerting
+ExecStart=/opt/healthchecks/venv/bin/python3 /opt/healthchecks/healthchecks/manage.py sendalerts
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

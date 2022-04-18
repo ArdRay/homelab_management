@@ -24,4 +24,9 @@ install_dependencies:
   virtualenv.managed:
     - requirements: /opt/healthchecks/healthchecks/requirements.txt
     - pip_upgrade: True
-        
+#  cmd.run:
+#    - cwd: /opt/healthchecks
+#    - names:
+#      - source venv/bin/activate && cd /opt/healthchecks/healthchecks && ./manage.py migrate
+#        - creates: /opt/healthchecks/migrated
+          
