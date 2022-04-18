@@ -17,7 +17,7 @@ install_dependencies:
 
 'https://github.com/healthchecks/healthchecks.git':
   git.cloned:
-    target: /opt/healthchecks
+    - target: /opt/healthchecks
 
 /opt/healthchecks/venv:
   virtualenv.managed:
