@@ -15,6 +15,7 @@ install_dependencies:
       - python3-dev 
       - python3-venv
       - virtualenv
+      - libpq-dev
 
 /opt/healthchecks/venv:
   git.cloned:
