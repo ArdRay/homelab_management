@@ -15,12 +15,13 @@ install_dependencies:
       - python3-dev 
       - python3-venv
 
-'https://github.com/healthchecks/healthchecks.git':
-  git.cloned:
-    - target: /opt/healthchecks
-
 /opt/healthchecks/venv:
+  git.cloned:
+    - name: https://github.com/healthchecks/healthchecks.git
+    - target: /opt/healthchecks
   virtualenv.managed:
+    - venv_bin: python3 -m venv
     - requirements: /opt/healthchecks/healthchecks/requirements.txt
     - use_wheel: True
+    - pip_upgrade: True
         
