@@ -20,8 +20,6 @@ install_dependencies:
   git.cloned:
     - name: https://github.com/healthchecks/healthchecks.git
     - target: /opt/healthchecks/healthchecks
-    - force_reset: True
-    - force_clone: True
   virtualenv.managed:
     - requirements: /opt/healthchecks/healthchecks/requirements.txt
     - use_wheel: True
