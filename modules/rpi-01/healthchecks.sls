@@ -22,6 +22,5 @@ install_dependencies:
     - target: /opt/healthchecks/healthchecks
   virtualenv.managed:
     - requirements: /opt/healthchecks/healthchecks/requirements.txt
-    - use_wheel: True
     - pip_upgrade: True
         
