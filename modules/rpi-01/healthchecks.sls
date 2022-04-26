@@ -16,6 +16,26 @@ install_dependencies:
       - python3-venv
       - virtualenv
       - libpq-dev
+      - nginx
+
+nginx_config:
+  file.managed:
+    - template: jinja
+    - names:
+      - /etc/nginx/conf.d/healthchecks.int.mxard.cloud.conf:
+        - source: salt://modules/healthchecks/nginx/nginx.conf.jinja
+
+healthchecks_service:
+  file.managed:
+    - names:
+      - /etc/systemd/system/healthchecks.service:
+        - source: salt://modules/healthchecks/healthchecks_server.service
+healthchecks_alerts:
+  file.managed:
+    - names:
+      - /etc/systemd/system/healthchecks_alerts.service:
+        - source: salt://modules/healthchecks/healthchecks_alerts.service
+
 
 /opt/healthchecks/venv:
   git.cloned:
@@ -29,4 +49,21 @@ install_dependencies:
 #    - names:
 #      - source venv/bin/activate && cd /opt/healthchecks/healthchecks && ./manage.py migrate
 #        - creates: /opt/healthchecks/migrated
-          
+
+nginx:      
+  service.running:
+    - reload: True
+    - enable: True
+    - watch:
+      - file: /etc/nginx/conf.d/healthchecks.int.mxard.cloud.conf
+
+healthchecks:
+  service.running:
+    - reload: True
+    - enable: True
+    - watch:
+      - file: /opt/healthchecks/healthchecks
+  cmd.wait:
+    - name: systemctl daemon-reload
+    - watch:
+      - file: /etc/systemd/system/healthchecks.service
