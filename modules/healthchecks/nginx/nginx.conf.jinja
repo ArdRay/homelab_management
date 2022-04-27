@@ -1,10 +1,3 @@
-# generated 2022-02-10, Mozilla Guideline v5.6, nginx 1.17.7, OpenSSL 1.1.1k, modern configuration
-# https://ssl-config.mozilla.org/#server=nginx&version=1.17.7&config=modern&openssl=1.1.1k&guideline=5.6
-
-events {
-    worker_connections 2048;
-}
-
 http {
     server {
         listen 80;
@@ -21,7 +14,7 @@ http {
 	    server_name {{ pillar['healthchecks']['fqdn'] }};
         ssl_certificate /.acme.sh/{{ pillar['healthchecks']['fqdn'] }}_ecc/fullchain.cer;
         ssl_certificate_key /.acme.sh/{{ pillar['healthchecks']['fqdn'] }}_ecc/{{ pillar['healthchecks']['fqdn'] }}.key;
-        
+
         ssl_session_timeout 1d;
         ssl_session_cache shared:MozSSL:10m;  # about 40000 sessions
         ssl_session_tickets off;
