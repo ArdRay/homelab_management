@@ -20,13 +20,11 @@ install_dependencies:
 
 config_files:
   file.managed:
-    - user: ops
-    - group: ops
+    - user: root
+    - group: root
     - names:
       - /etc/nginx/conf.d/healthchecks.int.mxard.cloud.conf:
         - template: jinja
-        - user: root
-        - group: root
         - source: salt://modules/healthchecks/nginx/nginx.conf.jinja
       - /etc/systemd/system/healthchecks.service:
         - source: salt://modules/healthchecks/healthchecks_server.service
