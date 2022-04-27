@@ -8,6 +8,13 @@
     - mode: 740
     - makedirs: True
 
+'/etc/sysconfig':
+  file.directory:
+    - user: root
+    - group: root
+    - mode: 740
+    - makedirs: True
+
 install_dependencies:
   pkg.latest:
     - pkgs:
@@ -46,6 +53,7 @@ healthcheck_db_migrate:
   cmd.run:
     - cwd: /opt/healthchecks
     - name: source venv/bin/activate && cd /opt/healthchecks/healthchecks && ./manage.py migrate
+    - shell: /bin/bash
     - creates: /opt/healthchecks/migrated
 
 nginx: 
@@ -60,7 +68,7 @@ healthchecks:
     - reload: True
     - enable: True
     - watch:
-      - file: /opt/healthchecks/healthchecks
+      - file: /opt/healthchecks/healthchecks/*
       - file: /etc/sysconfig/healthchecks_server
   cmd.wait:
     - name: systemctl daemon-reload
@@ -72,7 +80,7 @@ healthchecks_alerts:
     - reload: True
     - enable: True
     - watch:
-      - file: /opt/healthchecks/healthchecks
+      - file: /opt/healthchecks/healthchecks/*
   cmd.wait:
     - name: systemctl daemon-reload
     - watch:
