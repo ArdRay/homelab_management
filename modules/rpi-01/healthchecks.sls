@@ -30,7 +30,7 @@ config_files:
     - user: root
     - group: root
     - names:
-      - /etc/nginx/conf.d/{{ pillar['healthchecks']['fqdn'] }}.conf:
+      - /etc/nginx/conf.d/healthchecks.int.mxard.cloud.conf:
         - template: jinja
         - source: salt://modules/healthchecks/nginx/nginx.conf.jinja
       - /etc/systemd/system/healthchecks.service:
