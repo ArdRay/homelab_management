@@ -41,11 +41,12 @@ config_files:
   virtualenv.managed:
     - requirements: /opt/healthchecks/healthchecks/requirements.txt
     - pip_upgrade: True
+
+healthcheck_db_migrate:
   cmd.run:
     - cwd: /opt/healthchecks
-    - names:
-      - source venv/bin/activate && cd /opt/healthchecks/healthchecks && ./manage.py migrate
-        - creates: /opt/healthchecks/migrated
+    - name: source venv/bin/activate && cd /opt/healthchecks/healthchecks && ./manage.py migrate
+    - creates: /opt/healthchecks/migrated
 
 nginx: 
   service.running:
