@@ -68,7 +68,6 @@ healthchecks:
     - reload: True
     - enable: True
     - watch:
-      - file: /opt/healthchecks/healthchecks/*
       - file: /etc/sysconfig/healthchecks_server
   cmd.wait:
     - name: systemctl daemon-reload
@@ -80,7 +79,7 @@ healthchecks_alerts:
     - reload: True
     - enable: True
     - watch:
-      - file: /opt/healthchecks/healthchecks/*
+      - file: /etc/sysconfig/healthchecks_server
   cmd.wait:
     - name: systemctl daemon-reload
     - watch:
