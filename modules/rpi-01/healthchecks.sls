@@ -25,6 +25,8 @@ config_files:
     - names:
       - /etc/nginx/conf.d/healthchecks.int.mxard.cloud.conf:
         - template: jinja
+        - user: root
+        - group: root
         - source: salt://modules/healthchecks/nginx/nginx.conf.jinja
       - /etc/systemd/system/healthchecks.service:
         - source: salt://modules/healthchecks/healthchecks_server.service
@@ -41,11 +43,11 @@ config_files:
   virtualenv.managed:
     - requirements: /opt/healthchecks/healthchecks/requirements.txt
     - pip_upgrade: True
-#  cmd.run:
-#    - cwd: /opt/healthchecks
-#    - names:
-#      - source venv/bin/activate && cd /opt/healthchecks/healthchecks && ./manage.py migrate
-#        - creates: /opt/healthchecks/migrated
+  cmd.run:
+    - cwd: /opt/healthchecks
+    - names:
+      - source venv/bin/activate && cd /opt/healthchecks/healthchecks && ./manage.py migrate
+        - creates: /opt/healthchecks/migrated
 
 nginx: 
   service.running:
