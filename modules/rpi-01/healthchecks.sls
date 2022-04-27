@@ -62,8 +62,8 @@ nginx:
     - enable: True
     - watch:
       - file: /etc/nginx/conf.d/{{ pillar['healthchecks']['fqdn'] }}.conf
-      - file: /opt/ssl/{{ pillar['healthchecks']['fqdn'] }}.cer
-      - file: /opt/ssl/{{ pillar['healthchecks']['fqdn'] }}.key
+      - file: /.acme.sh/{{ pillar['healthchecks']['fqdn'] }}_ecc/fullchain.cer;
+      - file: /.acme.sh/{{ pillar['healthchecks']['fqdn'] }}_ecc/{{ pillar['healthchecks']['fqdn'] }}.key;
 
 healthchecks:
   service.running:
