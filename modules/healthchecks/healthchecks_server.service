@@ -16,9 +16,9 @@ Group=ops
 EnvironmentFile=/etc/sysconfig/healthchecks_server
 ExecStart=/opt/healthchecks/venv/bin/python3 /opt/healthchecks/healthchecks/manage.py runserver
 
-PrivateDevices=true
-ProtectHome=true
-ProtectSystem=full
+#PrivateDevices=true
+#ProtectHome=true
+#ProtectSystem=full
 
 [Install]
 WantedBy=multi-user.target

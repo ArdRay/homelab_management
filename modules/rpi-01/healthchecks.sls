@@ -54,7 +54,12 @@ healthcheck_db_migrate:
     - cwd: /opt/healthchecks
     - name: source venv/bin/activate && cd /opt/healthchecks/healthchecks && ./manage.py migrate
     - shell: /bin/bash
-    - creates: /opt/healthchecks/migrated
+
+healthcheck_static_setup:
+  cmd.run:
+    - cwd: /opt/healthchecks
+    - name: source venv/bin/activate && cd /opt/healthchecks/healthchecks && ./manage.py collectstatic
+    - shell: /bin/bash
 
 nginx: 
   service.running:
