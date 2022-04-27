@@ -18,24 +18,21 @@ install_dependencies:
       - libpq-dev
       - nginx
 
-nginx_config:
+config_files:
   file.managed:
-    - template: jinja
+    - user: ops
+    - group: ops
     - names:
       - /etc/nginx/conf.d/healthchecks.int.mxard.cloud.conf:
+        - template: jinja
         - source: salt://modules/healthchecks/nginx/nginx.conf.jinja
-
-healthchecks_service:
-  file.managed:
-    - names:
       - /etc/systemd/system/healthchecks.service:
         - source: salt://modules/healthchecks/healthchecks_server.service
-healthchecks_alerts:
-  file.managed:
-    - names:
       - /etc/systemd/system/healthchecks_alerts.service:
         - source: salt://modules/healthchecks/healthchecks_alerts.service
-
+      - /etc/sysconfig/healthchecks_server:
+        - template: jinja
+        - source: salt://modules/healthchecks/healthchecks_variables.jinja
 
 /opt/healthchecks/venv:
   git.cloned:
@@ -50,7 +47,7 @@ healthchecks_alerts:
 #      - source venv/bin/activate && cd /opt/healthchecks/healthchecks && ./manage.py migrate
 #        - creates: /opt/healthchecks/migrated
 
-nginx:      
+nginx: 
   service.running:
     - reload: True
     - enable: True
@@ -63,7 +60,19 @@ healthchecks:
     - enable: True
     - watch:
       - file: /opt/healthchecks/healthchecks
+      - file: /etc/sysconfig/healthchecks_server
   cmd.wait:
     - name: systemctl daemon-reload
     - watch:
       - file: /etc/systemd/system/healthchecks.service
+
+healthchecks_alerts:
+  service.running:
+    - reload: True
+    - enable: True
+    - watch:
+      - file: /opt/healthchecks/healthchecks
+  cmd.wait:
+    - name: systemctl daemon-reload
+    - watch:
+      - file: /etc/systemd/system/healthchecks_alerts.service

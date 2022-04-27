@@ -1,0 +1,21 @@
+SITE_ROOT = "https://healthchecks.int.mxard.cloud"
+SITE_NAME = "Homelabchecks"
+
+DEFAULT_FROM_EMAIL = "{{ pillar['healthchecks']['email']['address'] }}"
+
+EMAIL_HOST = "{{ pillar['healthchecks']['email']['host']['server'] }}"
+EMAIL_PORT = {{ pillar['healthchecks']['email']['host']['port'] }}
+EMAIL_HOST_USER = "{{ pillar['healthchecks']['email']['host']['user'] }}"
+EMAIL_HOST_PASSWORD = "{{ pillar['healthchecks']['email']['host']['password'] }}"
+EMAIL_USE_TLS = True
+
+DB=sqlite
+PROMETHEUS_ENABLED=True
+REGISTRATION_OPEN=False
+
+SECRET_KEY = {{ pillar['healthchecks']['secret']['key'] }}
+
+TELEGRAM_BOT_NAME = {{ pillar['telegram']['bot_name'] }}
+TELEGRAM_TOKEN = {{ pillar['telegram']['token'] }}
+
+DEBUG = False
