@@ -49,17 +49,22 @@ config_files:
     - requirements: /opt/healthchecks/healthchecks/requirements.txt
     - pip_upgrade: True
 
+/opt/healthchecks/healthchecks/hc/settings.py:
+  file.append:
+    - text:
+      - CSRF_TRUSTED_ORIGINS = ['https://healthchecks.int.mxard.cloud']
+
 healthcheck_db_migrate:
   cmd.run:
     - cwd: /opt/healthchecks
     - name: source venv/bin/activate && cd /opt/healthchecks/healthchecks && ./manage.py migrate
     - shell: /bin/bash
 
-healthcheck_static_setup:
-  cmd.run:
-    - cwd: /opt/healthchecks
-    - name: source venv/bin/activate && cd /opt/healthchecks/healthchecks && ./manage.py collectstatic
-    - shell: /bin/bash
+#healthcheck_static_setup:
+#  cmd.run:
+#    - cwd: /opt/healthchecks
+#    - name: source venv/bin/activate && cd /opt/healthchecks/healthchecks && ./manage.py collectstatic
+#    - shell: /bin/bash
 
 nginx: 
   service.running:
