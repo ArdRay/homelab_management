@@ -19,9 +19,9 @@ http {
         listen 443 ssl;
 
 	    server_name {{ pillar['healthchecks']['fqdn'] }};
-
-        ssl_certificate /opt/ssl/{{ pillar['healthchecks']['fqdn'] }}.cer;
-        ssl_certificate_key /opt/ssl/{{ pillar['healthchecks']['fqdn'] }}.key;
+        ssl_certificate /.acme.sh/{{ pillar['healthchecks']['fqdn'] }}_ecc/fullchain.cer;
+        ssl_certificate_key /.acme.sh/{{ pillar['healthchecks']['fqdn'] }}_ecc/{{ pillar['healthchecks']['fqdn'] }}.key;
+        
         ssl_session_timeout 1d;
         ssl_session_cache shared:MozSSL:10m;  # about 40000 sessions
         ssl_session_tickets off;
