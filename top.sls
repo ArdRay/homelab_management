@@ -2,7 +2,9 @@
 # vim: ft=yaml
 ---
 base:
-  '*':
+  'bm-prox-01':
+    - modules.node.packages
+  'vmk-*':
     - modules.node.interfaces
     - modules.node.packages
     - modules.node.services
