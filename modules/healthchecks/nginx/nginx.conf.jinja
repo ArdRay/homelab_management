@@ -10,6 +10,9 @@ server {
 server {
     listen 443 ssl;
 
+    client_max_body_size 4G;
+    keepalive_timeout 5;
+
     server_name {{ pillar['healthchecks']['fqdn'] }};
     ssl_certificate /.acme.sh/{{ pillar['healthchecks']['fqdn'] }}_ecc/fullchain.cer;
     ssl_certificate_key /.acme.sh/{{ pillar['healthchecks']['fqdn'] }}_ecc/{{ pillar['healthchecks']['fqdn'] }}.key;
@@ -33,14 +36,10 @@ server {
     ssl_trusted_certificate /.acme.sh/{{ pillar['healthchecks']['fqdn'] }}_ecc/ca.cer;
 
     location / {
-        proxy_pass http://127.0.0.1:8000/;
-        #proxy_set_header X-Forwarded-For $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
-        #proxy_set_header Host {{ pillar['healthchecks']['fqdn'] }};
-        proxy_read_timeout 900;
+        proxy_set_header Host {{ pillar['healthchecks']['fqdn'] }};
         proxy_redirect off;
-        proxy_http_version 1.1;
-        proxy_buffering off;
-        chunked_transfer_encoding off;
+        proxy_pass http://127.0.0.1:8000/;
     }
 }

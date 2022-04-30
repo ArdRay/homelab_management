@@ -48,6 +48,9 @@ config_files:
   virtualenv.managed:
     - requirements: /opt/healthchecks/healthchecks/requirements.txt
     - pip_upgrade: True
+  pip.installed:
+    - name: gunicorn==20.1.0
+    - bin_env: /opt/healthchecks/venv
 
 /opt/healthchecks/healthchecks/hc/settings.py:
   file.append:
