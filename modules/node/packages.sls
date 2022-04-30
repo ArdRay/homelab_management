@@ -18,6 +18,7 @@ install_default_packages:
       - htop
       - iptables
       - net-tools
+      - restic
       {% if grains['os'] == 'Rocky' %}
       - pinentry
       - vim-enhanced
