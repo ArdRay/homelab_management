@@ -18,7 +18,6 @@ install_default_packages:
       - htop
       - iptables
       - net-tools
-      - restic
       {% if grains['os'] == 'Rocky' %}
       - pinentry
       - vim-enhanced
@@ -34,3 +33,4 @@ remove_default_packageds:
   pkg.purged:
     - pkgs:
       - firewalld
+      - restic
