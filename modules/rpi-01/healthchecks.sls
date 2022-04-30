@@ -40,6 +40,7 @@ config_files:
       - /etc/sysconfig/healthchecks_server:
         - template: jinja
         - source: salt://modules/healthchecks/healthchecks_variables.jinja
+        - show_changes: False
 
 /opt/healthchecks/venv:
   git.cloned:
@@ -50,7 +51,7 @@ config_files:
     - pip_upgrade: True
   pip.installed:
     - name: gunicorn==20.1.0
-    - bin_env: /opt/healthchecks/venv
+    - bin_env: /opt/healthchecks/venv/bin/pip3
 
 /opt/healthchecks/healthchecks/hc/settings.py:
   file.append:

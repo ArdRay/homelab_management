@@ -12,7 +12,7 @@ Group=ops
 RuntimeDirectory=gunicorn
 EnvironmentFile=/etc/sysconfig/healthchecks_server
 WorkingDirectory=/opt/healthchecks/healthchecks
-ExecStart=/opt/healthchecks/venv/bin/gunicorn hc.wsgi
+ExecStart=/opt/healthchecks/venv/bin/gunicorn --env DJANGO_SETTINGS_MODULE=hc.settings hc.wsgi
 ExecReload=/bin/kill -s HUP $MAINPID
 KillMode=mixed
 TimeoutStopSec=5
