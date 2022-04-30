@@ -4,19 +4,22 @@ After=network-online.target
 Wants=network-online.target
 
 [Service]
-Type=notify
+Type=simple
+Restart=always
+RestartSec=20
+StartLimitInterval=10
+StartLimitBurst=5
 
 User=ops
 Group=ops
 
-RuntimeDirectory=gunicorn
 EnvironmentFile=/etc/sysconfig/healthchecks_server
 WorkingDirectory=/opt/healthchecks/healthchecks
-ExecStart=/opt/healthchecks/venv/bin/gunicorn --env DJANGO_SETTINGS_MODULE=hc.settings hc.wsgi
-ExecReload=/bin/kill -s HUP $MAINPID
-KillMode=mixed
-TimeoutStopSec=5
-PrivateTmp=true
+ExecStart=/opt/healthchecks/venv/bin/python3 /opt/healthchecks/healthchecks/manage.py runserver
+#PrivateDevices=true
+#ProtectHome=true
+#ProtectSystem=full
+#PrivateTmp=true
 
 [Install]
 WantedBy=multi-user.target
