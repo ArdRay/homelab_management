@@ -8,6 +8,13 @@
     - mode: 740
     - makedirs: True
 
+'/etc/cron.scripts':
+  file.directory:
+    - user: root
+    - group: root
+    - mode: 740
+    - makedirs: True
+
 ensure_proxy_interface_exists:
   cmd.run:
     - name: docker network create t2_proxy
@@ -55,3 +62,18 @@ docker_services:
       - file: /opt/services/authelia_server/configuration.yml
       - file: /opt/services/grafana/ldap.toml
       - file: /opt/services/dns/config.yml
+
+backup_services:
+  file.managed:
+    - template: jinja
+    - mode: 700
+    - names:
+      - /etc/cron.scripts/backup_gitea.sh:
+        - source: salt://modules/services/backup/backup_gitea.sh.jinja
+        - show_changes: False
+  cron.present:
+    - names:
+      - /bin/bash /etc/cron.scripts/backup_gitea.sh:
+        - day: '*/1'
+        - hour: '5'
+        - minute: '0'
