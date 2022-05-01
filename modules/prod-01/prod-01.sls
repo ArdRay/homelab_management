@@ -8,6 +8,13 @@
     - mode: 740
     - makedirs: True
 
+'/etc/cron.scripts':
+  file.directory:
+    - user: root
+    - group: root
+    - mode: 740
+    - makedirs: True
+
 ensure_proxy_interface_exists:
   cmd.run:
     - name: docker network create t2_proxy
@@ -50,3 +57,18 @@ docker_prod_01:
       - file: /opt/prod/rente/index.html
       - file: /opt/prod/sftp/sftp.json
       - file: /opt/prod/dns/config.yml
+
+backup_prod_01:
+  file.managed:
+    - template: jinja
+    - mode: 700
+    - names:
+      - /etc/cron.scripts/backup_sftp.sh:
+        - source: salt://modules/prod-01/backup/backup_sftp.sh.jinja
+        - show_changes: False
+  cron.present:
+    - names:
+      - /bin/bash /etc/cron.scripts/backup_sftp.sh:
+        - dayweek: '*/2'
+        - hour: '5'
+        - minute: '30'
