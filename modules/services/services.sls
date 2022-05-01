@@ -74,6 +74,6 @@ backup_services:
   cron.present:
     - names:
       - /bin/bash /etc/cron.scripts/backup_gitea.sh:
-        - day: '*/1'
+        - dayweek: '*/1'
         - hour: '5'
         - minute: '0'
