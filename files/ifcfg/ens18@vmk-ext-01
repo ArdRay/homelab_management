@@ -1,4 +1,0 @@
-TYPE=Ethernet
-DEVICE=ens18
-BOOTPROTO=none
-ONBOOT=yes
