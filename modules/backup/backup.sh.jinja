@@ -1,5 +1,21 @@
 #!/bin/bash
 
+script_name=$(basename -- "$0")
+pid=(`pgrep -f $script_name`)
+pid_count=${#pid[@]}
+
+[[ -z $pid ]] && echo "Failed to get the PID"
+
+if [ -f "/var/run/$script_name" ];then
+   if [[  $pid_count -gt "1" ]];then
+      exit 1
+   else
+      rm -f "/var/run/$script_name"
+   fi
+fi
+
+echo $pid > /var/run/$script_name
+
 if [[ $# -ne 4 ]]; then
     echo 'Too many/few arguments, expecting: repository_name, repository_bucket, folder_to_backup, monitoring_url.' >&2
     echo 'Example: backup.sh "b2:services--backup" "sftp" "/data/sftp" "https://healthchecks.io/xxx"' >&2
@@ -25,3 +41,5 @@ export RESTIC_PASSWORD_COMMAND="echo -n {{ pillar['backups']['services']['reposi
 /usr/local/bin/restic -r $repository_name:$repository_bucket backup --tag $repository_bucket $folder_to_backup
 
 curl -m 10 --retry 5 https://healthcheck.ts.vcu.edu/ping/$monitoring_url/
+
+rm -f "/var/run/$script_name"

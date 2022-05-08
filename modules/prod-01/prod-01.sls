@@ -54,7 +54,11 @@ docker_prod_01:
 backup_crons:
   cron.present:
     - names:
-      - '/bin/bash /etc/cron.scripts/backup.sh {{ pillar['backups']['services']['repository']['name'] }} sftp /data/sftp {{ pillar['healthchecks']['services']['sftp'] }} >&2':
+      - '/bin/bash /etc/cron.scripts/backup.sh {{ pillar['backups']['services']['repository']['name'] }} sftp /data/sftp/lexmark {{ pillar['healthchecks']['services']['sftp'] }} >&2':
         - dayweek: '*/2'
         - hour: '5'
+        - minute: '30'
+      - '/bin/bash /etc/cron.scripts/backup.sh {{ pillar['backups']['services']['repository']['name'] }} ebooks /data/ebooks {{ pillar['healthchecks']['services']['ebooks'] }} >&2':
+        - dayweek: '*/5'
+        - hour: '1'
         - minute: '30'
