@@ -8,13 +8,6 @@
     - mode: 740
     - makedirs: True
 
-'/etc/cron.scripts':
-  file.directory:
-    - user: root
-    - group: root
-    - mode: 740
-    - makedirs: True
-
 ensure_proxy_interface_exists:
   cmd.run:
     - name: docker network create t2_proxy
@@ -73,7 +66,7 @@ backup_services:
         - show_changes: False
   cron.present:
     - names:
-      - /bin/bash /etc/cron.scripts/backup_gitea.sh:
+      - /bin/bash /etc/cron.scripts/backup_gitea.sh >&2:
         - dayweek: '*/1'
         - hour: '5'
         - minute: '0'

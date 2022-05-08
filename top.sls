@@ -29,6 +29,7 @@ base:
   'vmk-srv-01':
     - hosts.vmk-srv-01
     - modules.docker.docker
+    - modules.backup.backup
     - modules.iptables.iptables
     - modules.services.services
     - modules.node.monitoring
