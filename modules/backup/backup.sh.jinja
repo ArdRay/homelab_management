@@ -2,8 +2,9 @@
 
 script_name=$(basename -- "$0")
 pid=(`pgrep -f $script_name`)
+{% raw %}
 pid_count=${#pid[@]}
-
+{% endraw %}
 [[ -z $pid ]] && echo "Failed to get the PID"
 
 if [ -f "/var/run/$script_name" ];then
