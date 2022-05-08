@@ -55,10 +55,18 @@ backup_crons:
   cron.present:
     - names:
       - '/bin/bash /etc/cron.scripts/backup.sh {{ pillar['backups']['services']['repository']['name'] }} sftp /data/sftp/lexmark {{ pillar['healthchecks']['services']['sftp'] }} >&2':
-        - dayweek: '*/2'
+        - daymonth: '*/2'
         - hour: '5'
         - minute: '30'
       - '/bin/bash /etc/cron.scripts/backup.sh {{ pillar['backups']['services']['repository']['name'] }} ebooks /data/ebooks {{ pillar['healthchecks']['services']['ebooks'] }} >&2':
-        - dayweek: '*/5'
+        - daymonth: '*/5'
         - hour: '1'
         - minute: '30'
+      - '/bin/bash /etc/cron.scripts/backup.sh {{ pillar['backups']['services']['repository']['name'] }} photos /data/photos {{ pillar['healthchecks']['services']['photos'] }} >&2':
+        - daymonth: '*/2'
+        - hour: '15'
+        - minute: '0'
+      - '/bin/bash /etc/cron.scripts/backup.sh {{ pillar['backups']['services']['repository']['name'] }} photos /data/nextcloud_data {{ pillar['healthchecks']['services']['nextcloud'] }} >&2':
+        - daymonth: '*/2'
+        - hour: '22'
+        - minute: '0'
