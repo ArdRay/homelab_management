@@ -37,6 +37,7 @@ base:
   'vmk-prod-01':
     - hosts.vmk-prod-01
     - modules.docker.docker
+    - modules.backup.backup
     - modules.iptables.iptables
     - modules.node.monitoring
     - modules.prod-01.prod-01
