@@ -26,6 +26,7 @@ base:
     - hosts.vmk-ext-01
     - modules.acme.acme
     - modules.iptables.iptables
+    - modules.iptables.cloudflare_set
     - modules.haproxy.haproxy
     - modules.node.monitoring
   'vmk-srv-01':

@@ -14,7 +14,7 @@
 -A INPUT -s 10.10.3.0/24 -j inMAN -m comment --comment "Management network"
 -A INPUT -s 10.10.2.3/24 -j inMAN -m comment --comment "Management Salt"
 -A INPUT -s 10.10.2.8/32 -j inMON -m comment --comment "Monitoring services"
--A INPUT -s 172.16.0.1/32 -i ens19.500 -j inPRIV -m comment --comment "Services"
+-A INPUT -m set --match-set cf4 src -j inPRIV -m comment --comment "From cloudflare"
 -A INPUT -m limit --limit 10/min -j LOG --log-prefix "fw.INPUT " --log-level 6
 -A INPUT -j DROP
 
