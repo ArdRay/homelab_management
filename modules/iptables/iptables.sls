@@ -11,10 +11,12 @@ iptables:
   service.running:
     - enable: True
     - reload: True
-    {% if grains['os'] == 'Rocky' %}
     - onchanges:
+      {% if grains['os'] == 'Rocky' %}
       - file: /etc/sysconfig/iptables-config
-    {% endif %}
+      {% elif grains['os'] == 'Ubuntu' %}
+      - file: /etc/iptables/rules.v4
+      {% endif %}
 
 iptables_files:
   file.managed:
