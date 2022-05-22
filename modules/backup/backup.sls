@@ -2,13 +2,6 @@
 # vim: ft=yaml
 ---
 
-'/etc/cron.scripts':
-  file.directory:
-    - user: root
-    - group: root
-    - mode: 740
-    - makedirs: True
-
 backup_script:
   file.managed:
     - template: jinja

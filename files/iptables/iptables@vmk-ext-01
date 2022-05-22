@@ -12,8 +12,9 @@
 -A INPUT -i lo -j ACCEPT
 -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
 -A INPUT -s 10.10.3.0/24 -j inMAN -m comment --comment "Management network"
+-A INPUT -s 10.10.2.3/24 -j inMAN -m comment --comment "Management Salt"
 -A INPUT -s 10.10.2.8/32 -j inMON -m comment --comment "Monitoring services"
--A INPUT -s 10.10.2.0/24 -j inPRIV -m comment --comment "Services"
+-A INPUT -s 172.16.0.1/32 -i ens19.500 -j inPRIV -m comment --comment "Services"
 -A INPUT -m limit --limit 10/min -j LOG --log-prefix "fw.INPUT " --log-level 6
 -A INPUT -j DROP
 
@@ -30,6 +31,9 @@
 ## Management network
 -A inMAN -p icmp -j ACCEPT
 -A inMAN -p tcp -m state --state NEW -m tcp --dport 22 -j ACCEPT
+-A inMAN -p tcp -m tcp --dport 4505 -m state --state NEW -j ACCEPT -m comment --comment "saltstack master 4505/tcp"
+-A inMAN -p tcp -m tcp --dport 4506 -m state --state NEW -j ACCEPT -m comment --comment "saltstack master 4506/tcp"
+
 ## no drop at end
 
 ## Monitoring network
@@ -39,12 +43,7 @@
 
 ## Non/docker services
 -A inPRIV -p icmp -j ACCEPT
--A inPRIV -p tcp -m tcp --dport 4505 -m state --state NEW -j ACCEPT -m comment --comment "saltstack master 4505/tcp"
--A inPRIV -p tcp -m tcp --dport 4506 -m state --state NEW -j ACCEPT -m comment --comment "saltstack master 4506/tcp"
--A inPRIV -p tcp -m state --state NEW -m tcp --dport 80 -j ACCEPT -m comment --comment "inbound services: 80/tcp"
 -A inPRIV -p tcp -m state --state NEW -m tcp --dport 443 -j ACCEPT -m comment --comment "inbound services: 443/tcp"
--A inPRIV -p tcp -m state --state NEW -m tcp --dport 53 -j ACCEPT -m comment --comment "inbound services: 53/tcp"
--A inPRIV -p udp -m state --state NEW -m udp --dport 53 -j ACCEPT -m comment --comment "inbound services: 53/udp"
 -A inPRIV -m limit --limit 10/min -j LOG --log-prefix "fw.inPRIV " --log-level 6
 -A inPRIV -j REJECT --reject-with icmp-host-prohibited
 ## reject to ease debug

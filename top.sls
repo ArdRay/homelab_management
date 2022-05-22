@@ -3,8 +3,10 @@
 ---
 base:
   'bm-prox-01':
+    - modules.node.baseline
     - modules.node.packages
   'vmk-*':
+    - modules.node.baseline
     - modules.node.interfaces
     - modules.node.packages
     - modules.node.services
