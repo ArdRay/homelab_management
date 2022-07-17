@@ -41,6 +41,8 @@ export RESTIC_PASSWORD_COMMAND="echo -n {{ pillar['backups']['services']['reposi
 
 /usr/local/bin/restic -r $repository_name:$repository_bucket backup --tag $repository_bucket $folder_to_backup
 
+/usr/local/bin/restic -r $repository_name:$repository_bucket forget --keep-last 20 --prune
+
 curl -m 10 --retry 5 https://healthcheck.ts.vcu.edu/ping/$monitoring_url/
 
 rm -f "/var/run/$script_name"
