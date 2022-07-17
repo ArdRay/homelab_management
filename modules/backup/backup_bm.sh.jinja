@@ -1,0 +1,48 @@
+#!/bin/bash
+
+script_name=$(basename -- "$0")
+pid=(`pgrep -f $script_name`)
+{% raw %}
+pid_count=${#pid[@]}
+{% endraw %}
+[[ -z $pid ]] && echo "Failed to get the PID"
+
+if [ -f "/var/run/$script_name" ];then
+   if [[  $pid_count -gt "1" ]];then
+      exit 1
+   else
+      rm -f "/var/run/$script_name"
+   fi
+fi
+
+echo $pid > /var/run/$script_name
+
+if [[ $# -ne 4 ]]; then
+    echo 'Too many/few arguments, expecting: repository_name, repository_bucket, folder_to_backup, monitoring_url.' >&2
+    echo 'Example: backup.sh "b2:services--backup" "sftp" "/data/sftp" "https://healthchecks.io/xxx"' >&2
+    exit 1
+fi
+
+repository_name=$1
+repository_bucket=$2
+folder_to_backup=$3
+monitoring_url=$4
+
+if [[ ! -d "$folder_to_backup" ]]; then
+    echo "Ensure $folder_to_backup exists on the filesystem."
+fi
+
+export B2_ACCOUNT_ID={{ pillar['backups']['prox-01']['b2']['account_id'] }}
+export B2_ACCOUNT_KEY={{ pillar['backups']['prox-01']['b2']['account_key'] }}
+export RESTIC_PASSWORD_COMMAND="echo -n {{ pillar['backups']['prox-01']['repository']['password'] }}"
+
+# If repo is not initialised, create 
+/usr/local/bin/restic -r $repository_name:$repository_bucket snapshots || /usr/local/bin/restic -r $repository_name:$repository_bucket init
+
+/usr/local/bin/restic -r $repository_name:$repository_bucket backup --tag $repository_bucket $folder_to_backup --exclude="Learning"
+
+/usr/local/bin/restic -r $repository_name:$repository_bucket forget --keep-last 20 --prune
+
+curl -m 10 --retry 5 https://healthcheck.ts.vcu.edu/ping/$monitoring_url/
+
+rm -f "/var/run/$script_name"

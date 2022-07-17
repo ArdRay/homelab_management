@@ -3,8 +3,10 @@
 ---
 base:
   'bm-prox-01':
+    - hosts.bm-prox-01
     - modules.node.baseline
     - modules.node.packages
+    - modules.backup.backup
   'vmk-*':
     - modules.node.baseline
     - modules.node.interfaces
