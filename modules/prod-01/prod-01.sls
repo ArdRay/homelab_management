@@ -59,14 +59,19 @@ backup_crons:
         - hour: '5'
         - minute: '30'
       - '/bin/bash /etc/cron.scripts/backup.sh {{ pillar['backups']['services']['repository']['name'] }} ebooks /data/ebooks {{ pillar['healthchecks']['services']['ebooks'] }} >&2':
-        - daymonth: '*/5'
+        - daymonth: '*/12'
         - hour: '1'
         - minute: '30'
       - '/bin/bash /etc/cron.scripts/backup.sh {{ pillar['backups']['services']['repository']['name'] }} photos /data/photos {{ pillar['healthchecks']['services']['photos'] }} >&2':
         - daymonth: '*/2'
         - hour: '15'
         - minute: '0'
-      - '/bin/bash /etc/cron.scripts/backup.sh {{ pillar['backups']['services']['repository']['name'] }} photos /data/nextcloud_data {{ pillar['healthchecks']['services']['nextcloud'] }} >&2':
+      - '/bin/bash /etc/cron.scripts/backup.sh {{ pillar['backups']['services']['repository']['name'] }} nextcloud_data /data/nextcloud_data {{ pillar['healthchecks']['services']['nextcloud'] }} >&2':
         - daymonth: '*/2'
         - hour: '22'
         - minute: '0'
+      - '/bin/bash /etc/cron.scripts/backup.sh {{ pillar['backups']['services']['repository']['name'] }} audiobooks /data/audiobooks {{ pillar['healthchecks']['services']['audiobooks'] }} >&2':
+        - daymonth: '*/10'
+        - hour: '7'
+        - minute: '0'
+        
