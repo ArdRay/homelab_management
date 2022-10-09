@@ -41,6 +41,9 @@ customDNS:
     drone.int.mxard.cloud: 10.10.2.2
 
     pve.int.mxard.cloud: 10.10.3.100
+
+    dev.int.mxard.cloud: 10.10.1.250
+
 blocking:
   blackLists:
     ads:
