@@ -42,7 +42,7 @@ customDNS:
 
     pve.int.mxard.cloud: 10.10.3.100
 
-    dev.int.mxard.cloud: 10.10.1.250
+    dev.int.mxard.cloud: 10.10.2.250
 
 blocking:
   blackLists:
