@@ -15,7 +15,7 @@ yum-utils:
 
 docker-ce:
   pkg.installed:
-    - version: 20.10.14-3.el8
+    - version: 23.0.5-1.el8
 
 /etc/docker/:
   file.directory:
